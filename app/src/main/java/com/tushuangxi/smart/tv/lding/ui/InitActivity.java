@@ -70,7 +70,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     @Override
     protected void onResume() {
         super.onResume();
-
+        goSiteNavigation(15,1);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -316,10 +316,9 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     }
 
     //----------------------------------------------------------------------------------------------
-    private void goContinueActivity(String deviceIdentity) {
-        SiteNavigationRspPresenter.getPresenter(this,mContext).requestSiteNavigationRspList( deviceIdentity,this);
+    private void goSiteNavigation(int pageNum,int pageSize) {
+        SiteNavigationRspPresenter.getPresenter(this,mContext).requestSiteNavigationRspList( pageNum,pageSize,this);
     }
-
     public static void getApkVersionUpdate(int versionNumber) {
 //        ApkVersionUpdateJsonData jsonData = new ApkVersionUpdateJsonData();
 //        jsonData.setVersionNumber(versionNumber);

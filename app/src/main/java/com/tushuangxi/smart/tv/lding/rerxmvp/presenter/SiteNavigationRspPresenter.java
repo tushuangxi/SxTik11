@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.entity.request.CheckActivityStatusJsonData;
+import com.tushuangxi.smart.tv.lding.entity.request.JsonData;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BasePresenter;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.model.GetAllDataListModelImpl;
@@ -31,13 +32,13 @@ public class SiteNavigationRspPresenter extends BasePresenter<interfaceUtilsAll.
         iSiteNavigationRspInteractor = new GetAllDataListModelImpl();
     }
     @Override
-    public void requestSiteNavigationRspList(String deviceIdentity, Context context) {
-        CheckActivityStatusJsonData jsonData = new CheckActivityStatusJsonData();
-//        jsonData.setDeviceIdentity(deviceIdentity);
+    public void requestSiteNavigationRspList(int pageNum,int pageSize, Context context) {
+        JsonData jsonData = new JsonData();
+        jsonData.setPageNum(pageNum);
+        jsonData.setPageSize(pageSize);
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(jsonData));
         mSubscription = iSiteNavigationRspInteractor.requestSiteNavigationRspList(this,body,context);
     }
-
     @Override
     public void onSuccess(SiteNavigationRsp siteNavigationRsp ){
         super.onSuccess(siteNavigationRsp);

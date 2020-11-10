@@ -49,7 +49,7 @@ public class interfaceUtilsAll {
     }
 
     public interface SiteNavigationRspPresenter {
-        void requestSiteNavigationRspList(String deviceIdentity, Context context);
+        void requestSiteNavigationRspList(int pageNum,int pageSize, Context context);
     }
 
 }
