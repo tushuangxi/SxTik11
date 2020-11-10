@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/line1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/black_alpha30"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:gravity="center"
+        >
+
+    <TextView
+        android:textColor="@color/white"
+        android:text="签到二维码"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="right"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:background="@mipmap/erweima">
+
+
+        <ImageView
+            android:id="@+id/iv_creat_erweima"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:visibility="visible"
+            android:layout_marginTop="25dp"/>
+
+        <TextView
+            android:id="@+id/tv_registerNum"
+            android:textColor="#ffffff"
+            android:text="在线学员: 0 人"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

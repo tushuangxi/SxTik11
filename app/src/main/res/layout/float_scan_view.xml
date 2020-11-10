@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/line1"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+   >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+
+
+    <!--第二层：search menu youku-->
+    <RelativeLayout
+        android:id="@+id/root_level_2"
+        android:layout_width="133dp"
+        android:layout_height="275dp"
+        android:background="@mipmap/float_2"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+
+      >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+
+        <LinearLayout
+            android:id="@+id/ll_bianji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="130dp"
+            android:gravity="center"
+            >
+            <ImageButton
+                android:id="@+id/ib_bianji"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/bianji2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="编辑"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_signout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="130dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            >
+            <ImageButton
+                android:id="@+id/ib_signout"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/bianji2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="退出"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tianjia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            >
+            <ImageButton
+                android:id="@+id/ib_tianjia"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/bianji2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="添加"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_shanchu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginBottom="35dp"
+            android:gravity="center"
+            android:visibility="visible"
+            >
+            <ImageButton
+                android:id="@+id/ib_shanchu"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/shanchu2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="删除"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_signout_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginBottom="35dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            >
+            <ImageButton
+                android:id="@+id/ib_signout_delete"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/shanchu2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="退出"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+        <!--第一层：home-->
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="150dp"
+            android:background="@mipmap/float_1"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="90dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                >
+
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:background="@mipmap/fanhui"
+                android:layout_marginLeft="5dp"
+                />
+            <ImageButton
+                android:id="@+id/ib_home"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="5dp"
+                android:background="@mipmap/huishouye"
+                android:layout_marginLeft="5dp"
+                />
+            <ImageButton
+                android:id="@+id/ib_gengduo"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:background="@mipmap/gengduo"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

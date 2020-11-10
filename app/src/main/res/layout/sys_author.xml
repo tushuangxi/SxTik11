@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_sys_author"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+   >
+
+    <RelativeLayout
+        android:layout_width="560dp"
+        android:layout_height="150dp"
+        android:background="@drawable/bg_circle_shape"
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+        <LinearLayout
+            android:id="@+id/ll_join1"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/black_drak"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/bg_album_circle_shape"
+                android:layout_weight="1"
+                >
+
+            <TextView
+                android:id="@+id/tv_setDeviceId"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:hint=""
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/detail_navigator_normal"
+                android:textColorHint="@color/gray"
+                android:textSize="15sp"
+                />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_getDeviceId"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:background="@drawable/button_circle_shape"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_join2"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+            android:visibility="gone"
+                >
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="公司名称"
+                    android:textColor="@color/black_drak"
+                    android:gravity="center_vertical"
+                    android:textSize="15sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_album_circle_shape"
+                    android:layout_weight="1"
+                    >
+
+                <EditText
+                    android:id="@+id/et_query"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:hint=""
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/detail_navigator_normal"
+                    android:textColorHint="@color/gray"
+                    android:textSize="15sp"
+                    />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_drak"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/tv_check_network"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/blue"
+                android:visibility="invisible"
+                android:text=""
+                android:textSize="10sp"
+                />
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                >
+
+                <Button
+                    android:id="@+id/bt_joinAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@drawable/button_circle_shape"
+                    android:textColor="@color/white"
+                    android:text="进入"
+                    android:textSize="15sp"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="560dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/button_circle_shape"
+        >
+        <TextView
+            android:id="@+id/tvtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

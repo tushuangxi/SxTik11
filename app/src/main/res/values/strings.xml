@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">框架</string>
+    <string name="network_connection_lost">网络连接断开!</string>
+    <string name="no_matching_company">没有匹配的公司!</string>
+    <string name="network_lost">网络连接断开!</string>
+    <string name="not_granted_permission">部分权限未正常授予!</string>
+    <string name="denied_authorization">被永久拒绝授权，请手动授予权限!</string>
+    <string name="failed_to_get_permission">获取权限失败!</string>
+    <string name="again_to_exit">再按一次退出!</string>
+    <string name="obtain_the_authentication_code">请获取认证码!</string>
+    <string name="device_id_not_obtained_ID">未获取到设备ID!</string>
+    <string name="activity_continues">活动继续!</string>
+    <string name="the_event_is_over">活动已结束!</string>
+    <string name="activity_end_failed">活动结束失败!</string>
+    <string name="please_select_a_company">请选择公司!</string>
+    <string name="company_does_not_exist_please_re_select">公司不存在!</string>
+    <string name="matching_organization_please_re_enter">没有匹配的组织机构!</string>
+    <string name="failed_to_generate_the_organization_does_not_exist">签到失败,机构不存在!</string>
+    <string name="please_select_organization_name">请选择机构名称!</string>
+    <string name="successful_opening_of_the_course">开课成功!</string>
+    <string name="fails_opening_of_the_course">开课失败!</string>
+    <string name="activity_already_exists_for_this_device">该设备已存在开始的活动!</string>
+    <string name="no_data_please_add_data">没数据啦!</string>
+
+
+</resources>
