@@ -2,6 +2,7 @@ package com.tushuangxi.smart.tv.library.loading.conn;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.text.TextUtils;
 import androidx.multidex.MultiDex;
 import com.tao.admin.loglib.IConfig;
@@ -14,6 +15,11 @@ import com.tushuangxi.smart.tv.lding.utils.LaunchTimer;
 import com.lky.toucheffectsmodule.TouchEffectsManager;
 import com.lky.toucheffectsmodule.types.TouchEffectsViewType;
 import com.lky.toucheffectsmodule.types.TouchEffectsWholeType;
+import com.tushuangxi.smart.tv.lding.utils.LogcatUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * LoadingApp
@@ -84,4 +90,6 @@ public class LoadingApp extends Application {
         super.onTerminate();
 
     }
+
+
 }

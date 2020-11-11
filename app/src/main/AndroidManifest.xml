@@ -64,7 +64,7 @@
 
         <activity android:name="com.tushuangxi.smart.tv.lding.ui.InitActivity"
             android:theme="@style/InitTheme"
-            >
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

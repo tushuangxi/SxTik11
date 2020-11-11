@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.widget.Toast;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.utils.DateUtil;
+import com.tushuangxi.smart.tv.lding.utils.LogcatUtils;
 import com.tushuangxi.smart.tv.lding.utils.SpfsUtils;
 import com.tushuangxi.smart.tv.library.taskly.task.MainTask;
 import com.king.thread.nevercrash.NeverCrash;
@@ -64,8 +65,8 @@ public class InitWelikeCatchTask extends MainTask {
 
                 //上传异常信息到服务器
                 uploadExceptionToServer(thread ,ex);
-
-
+                //保存本地日志
+                LogcatUtils.exportLogcat(ex.getStackTrace().toString());
 //                showToast(e.getMessage());
             }
         });
