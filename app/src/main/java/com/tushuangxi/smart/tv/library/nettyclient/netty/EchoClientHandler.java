@@ -96,7 +96,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<Object> {
             //传来的消息包装成字节缓冲区
             msgStr = (String) msg;
             Logger.w(TAG,"NettyClient读取服务端消息:" +msgStr);
-//            EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_NETTY_NUM_DATA,msgStr));
+//            EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_NETTY_NUM_DATA,msgStr));
         } catch (Exception e) {
             e.printStackTrace();
         }

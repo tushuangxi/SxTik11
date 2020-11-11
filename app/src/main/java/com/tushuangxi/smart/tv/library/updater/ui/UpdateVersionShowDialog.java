@@ -86,7 +86,7 @@ public class UpdateVersionShowDialog extends DialogFragment {
             public void onClick(View v) {
                 commitUpdater = false;
                 dismiss();
-//                EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_CLOSE_CHECK_WORK_DATA));
+//                EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_CLOSE_CHECK_WORK_DATA));
             }
         });
 

@@ -332,7 +332,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
      *  Caused by: de.greenrobot.event.EventBusException: Subscriber cl    ProgramActivity and its super classes have no public methods with the @Subscribe annotation
      *      //粘性事件  处理消息
      *     @Subscribe(threadMode= ThreadMode.MAIN, sticky=true)
-     *     public void myEventBusMessage(EventMessage eventMessage){
+     *     public void myEventBusMessage(EventClientMessage eventMessage){
      *
      *     }
      * */

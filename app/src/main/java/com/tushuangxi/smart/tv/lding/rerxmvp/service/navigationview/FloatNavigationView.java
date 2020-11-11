@@ -167,7 +167,7 @@ public class FloatNavigationView extends RelativeLayout{
         view.findViewById(R.id.ib_tianjia).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_ADD_DATA));
+//                EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_ADD_DATA));
 
             }
         });
@@ -178,7 +178,7 @@ public class FloatNavigationView extends RelativeLayout{
             public void onClick(View v) {
                 ll_bianji.setVisibility(INVISIBLE);
                 ll_signout.setVisibility(VISIBLE);
-//                EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_SET_DATA_));
+//                EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_SET_DATA_));
             }
         });
 
@@ -188,7 +188,7 @@ public class FloatNavigationView extends RelativeLayout{
             public void onClick(View v) {
                 ll_bianji.setVisibility(VISIBLE);
                 ll_signout.setVisibility(INVISIBLE);
-//                EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_SIGNOUT_DATA_));
+//                EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_SIGNOUT_DATA_));
             }
         });
 
@@ -198,7 +198,7 @@ public class FloatNavigationView extends RelativeLayout{
             public void onClick(View v) {
                 ll_shanchu.setVisibility(INVISIBLE);
                 ll_signout_delete.setVisibility(VISIBLE);
-//                EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_DELETE_DATA_));
+//                EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_DELETE_DATA_));
 
             }
         });
@@ -208,7 +208,7 @@ public class FloatNavigationView extends RelativeLayout{
             public void onClick(View v) {
                 ll_shanchu.setVisibility(VISIBLE);
                 ll_signout_delete.setVisibility(INVISIBLE);
-//                EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_DELETEOUT_DATA_));
+//                EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_DELETEOUT_DATA_));
             }
         });
     }

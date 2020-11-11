@@ -60,7 +60,7 @@ public class NoWorkDialog  extends DialogFragment implements View.OnClickListene
                 String  subClassName=localClassName.substring(localClassName.length()-12);
                 if (subClassName.equals("InitActivity")){
                     //InitActivity 页面 刷新数据  版本更新
-//                    EventBus.getDefault().postSticky(new EventMessage(EventCode.SYN_CODE_CLOSE_REFURBISH_DATA));
+//                    EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_CLOSE_REFURBISH_DATA));
                 }
                 break;
             default:
