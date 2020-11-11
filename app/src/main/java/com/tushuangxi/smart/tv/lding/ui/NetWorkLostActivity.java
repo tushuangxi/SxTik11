@@ -7,11 +7,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.R;
 import com.tushuangxi.smart.tv.lding.event.eventclent.Event;
 import com.tushuangxi.smart.tv.lding.event.eventclent.EventClientHelper;
-import com.tushuangxi.smart.tv.lding.event.eventclent.EventClientListener;
+import com.tushuangxi.smart.tv.lding.event.eventclent.IEventClientListener;
 import com.tushuangxi.smart.tv.lding.event.eventclent.EventClientMessage;
 import com.tushuangxi.smart.tv.lding.event.synclent.DataSynCode;
 import com.tushuangxi.smart.tv.lding.event.synclent.DataSynManager;
@@ -28,7 +27,7 @@ import butterknife.BindView;
 /*
 android:launchMode="singleTask"    模式
  */
-public class NetWorkLostActivity extends BaseActivity implements EventClientListener,IDataSynListener{
+public class NetWorkLostActivity extends BaseActivity implements IEventClientListener,IDataSynListener{
 
     @BindView(R.id.rl_netlost)
     RelativeLayout rl_netlost;

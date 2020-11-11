@@ -3,7 +3,7 @@ package com.tushuangxi.smart.tv.lding.event.eventclent;
 /**
  * @Created by changliang on 2017/6/21.
  */
-public interface EventClientListener {
+public interface IEventClientListener {
 
     /**
      * 逐步会用回调的方式替换broadcast通知,

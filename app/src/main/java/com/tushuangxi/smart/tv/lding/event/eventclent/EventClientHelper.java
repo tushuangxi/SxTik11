@@ -18,12 +18,12 @@ public class EventClientHelper {
     private static EventClientHelper instance = null;
 
     // 使用回调的方式替换broadcast通知,以便开发者更容易定制自己的实现例如免打扰功能
-    private ArrayList<EventClientListener> eventListeners;
+    private ArrayList<IEventClientListener> eventListeners;
 
 
     private EventClientHelper() {
         // 初始化事件监听器
-        eventListeners = new ArrayList<EventClientListener>();
+        eventListeners = new ArrayList<IEventClientListener>();
     }
 
     /**
@@ -48,7 +48,7 @@ public class EventClientHelper {
      *
      * @param ldingEventListener
      */
-    public void registerEventListener(EventClientListener ldingEventListener) {
+    public void registerEventListener(IEventClientListener ldingEventListener) {
         synchronized (eventListeners) {
             if (eventListeners.contains(ldingEventListener)) {
                 return;
@@ -62,11 +62,11 @@ public class EventClientHelper {
      *
      * @param ldingEventListener
      */
-    public void unregisterEventListener(EventClientListener ldingEventListener) {
+    public void unregisterEventListener(IEventClientListener ldingEventListener) {
         synchronized (eventListeners) {
             int position = 0;
             while (position < eventListeners.size()) {
-                EventClientListener eventListener = eventListeners.get(position);
+                IEventClientListener eventListener = eventListeners.get(position);
                 if (ldingEventListener.equals(eventListener)) {
                     eventListeners.remove(eventListener);
                 } else {
@@ -89,7 +89,7 @@ public class EventClientHelper {
         //响应事件,调用回调函数
         if (eventListeners != null && eventListeners.size() > 0) {
             for (int i = eventListeners.size() - 1; i > -1; i--) {
-                EventClientListener eventListener = eventListeners.get(i);
+                IEventClientListener eventListener = eventListeners.get(i);
                 boolean isDealWith = eventListener.onEvent(notifierEvent);
                 if (isDealWith) {
                     break;
