@@ -8,7 +8,7 @@ import com.tushuangxi.smart.tv.lding.utils.LaunchTimer;
 import com.tushuangxi.smart.tv.library.taskly.TaskDispatcher;
 import com.tushuangxi.smart.tv.library.taskly.tasks.GetDeviceIdTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitUiStatusTask;
-import com.tushuangxi.smart.tv.library.taskly.tasks.InitFrescoTask;
+import com.tushuangxi.smart.tv.library.taskly.tasks.InitImageLoadTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitJPushTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitSplashKitTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitUiWatchTask;
@@ -43,7 +43,7 @@ public enum PreTaskManager {
                 .addTask(new InitSplashKitTask(app))
                 .addTask(new InitWelikeCatchTask(mContext))
                 .addTask(new InitUiStatusTask())
-                .addTask(new InitFrescoTask())
+                .addTask(new InitImageLoadTask(mContext))
                 .addTask(new InitJPushTask())
                 .addTask(new InitUmengTask())
                 .addTask(new GetDeviceIdTask())

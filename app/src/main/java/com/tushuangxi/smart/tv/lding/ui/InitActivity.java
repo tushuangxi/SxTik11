@@ -25,6 +25,8 @@ import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
 import com.tushuangxi.smart.tv.lding.widget.LoadingDialogFg;
+import com.tushuangxi.smart.tv.library.imageloaderfactory.ImageLoaderUtils;
+import com.tushuangxi.smart.tv.library.imageloaderfactory.image.ImageConfigProduct;
 import com.tushuangxi.smart.tv.library.updater.ui.UpdateVersionShowDialog;
 import com.tushuangxi.smart.tv.library.updater.utils.AppUtils;
 import com.hjq.permissions.OnPermission;
@@ -52,9 +54,13 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
     @BindView(R.id.ll_init_root)
     RelativeLayout ll_init_root;
+    @BindView(R.id.iv_ImageView)
+    ImageView iv_ImageView;
     @BindView(R.id.bt_joinAuthor)
     Button bt_joinAuthor;
 
+
+    String url = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2897251542,2330444017&fm=26&gp=0.jpg";
     @Override
     public void initBundleData(Bundle bundle) {
 
@@ -94,6 +100,10 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         addOnClickListeners(R.id.ll_init_root
                 , R.id.bt_joinAuthor
         );
+
+//        ImageLoaderUtils.loadPic(ImageLoaderUtils.loadTypeUil,url,iv_ImageView,true);
+//        ImageLoaderUtils.loadPic(ImageLoaderUtils.loadTypeGlide,url,iv_ImageView,true);
+        ImageLoaderUtils.loadPic(ImageLoaderUtils.loadTypePicasso,url,iv_ImageView,true);
 
     }
 
