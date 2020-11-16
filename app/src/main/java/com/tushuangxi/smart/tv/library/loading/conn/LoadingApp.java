@@ -8,6 +8,7 @@ import androidx.multidex.MultiDex;
 import com.tao.admin.loglib.IConfig;
 import com.tao.admin.loglib.Logger;
 import com.tao.admin.loglib.TLogApplication;
+import com.tencent.mmkv.MMKV;
 import com.tushuangxi.smart.tv.lding.other.CommonLibConstant;
 import com.tushuangxi.smart.tv.lding.rerxmvp.service.navigationview.AbsMeanager;
 import com.tushuangxi.smart.tv.lding.utils.AppUtils2;
@@ -71,6 +72,9 @@ public class LoadingApp extends Application {
 
         //枚举 初始化 任务
         PreTaskManager.$.init(this,getContext().getApplicationContext());
+
+        //初始化mmkv
+        MMKV.initialize(this);
     }
 
     //创建一个静态的方法，以便获取context对象

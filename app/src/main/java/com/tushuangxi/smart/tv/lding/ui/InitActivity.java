@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 import com.billy.android.preloader.PreLoader;
 import com.billy.android.preloader.PreLoaderWrapper;
 import com.billy.android.preloader.interfaces.DataListener;
@@ -21,12 +21,13 @@ import com.fengchen.uistatus.annotation.UiStatus;
 import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.eventbus.EventMessage;
+import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
+import com.tushuangxi.smart.tv.library.mmkv.KVUtils;
 import com.tushuangxi.smart.tv.lding.widget.LoadingDialogFg;
 import com.tushuangxi.smart.tv.library.imageloaderfactory.ImageLoaderUtils;
-import com.tushuangxi.smart.tv.library.imageloaderfactory.image.ImageConfigProduct;
 import com.tushuangxi.smart.tv.library.updater.ui.UpdateVersionShowDialog;
 import com.tushuangxi.smart.tv.library.updater.utils.AppUtils;
 import com.hjq.permissions.OnPermission;
@@ -77,6 +78,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     protected void onResume() {
         super.onResume();
         goSiteNavigation(15,1);
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -101,9 +103,17 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 , R.id.bt_joinAuthor
         );
 
+        //图片
 //        ImageLoaderUtils.loadPic(ImageLoaderUtils.loadTypeUil,url,iv_ImageView,true);
 //        ImageLoaderUtils.loadPic(ImageLoaderUtils.loadTypeGlide,url,iv_ImageView,true);
         ImageLoaderUtils.loadPic(ImageLoaderUtils.loadTypePicasso,url,iv_ImageView,true);
+
+        //存储
+        KVUtils.getInstance().putString(AppGlobalConsts.Token,"Token3");
+        if (KVUtils.getInstance().containsKey(AppGlobalConsts.Token)){
+            KVUtils.getInstance().removeString(AppGlobalConsts.Token);
+        }
+        Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
 
     }
 
