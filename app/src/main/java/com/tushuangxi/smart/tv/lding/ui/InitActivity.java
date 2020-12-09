@@ -41,12 +41,13 @@ import com.tushuangxi.smart.tv.lding.utils.TipUtil;
 import com.tushuangxi.smart.tv.library.router.UiPage;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
 
 
-public class InitActivity extends BaseActivity implements   interfaceUtilsAll.SiteNavigationRspView {
+public class InitActivity extends BaseActivity implements   interfaceUtilsAll.SiteNavigationRspView{
 
     String TAG = "TAG: "+ InitActivity.class.getSimpleName()+"....";
     public static  InitActivity mActivity;
@@ -113,6 +114,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         if (KVUtils.getInstance().containsKey(AppGlobalConsts.Token)){
             KVUtils.getInstance().removeString(AppGlobalConsts.Token);
         }
+        String Token = KVUtils.getInstance().getString(AppGlobalConsts.Token);
         Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
 
     }

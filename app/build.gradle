@@ -172,5 +172,4 @@ dependencies {
     //MMKV
     implementation 'com.tencent:mmkv-static:1.2.5'
 
-    implementation 'com.alibaba:fastjson:1.2.1'
 }
