@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.billy.android.preloader.PreLoader;
 import com.billy.android.preloader.PreLoaderWrapper;
 import com.billy.android.preloader.interfaces.DataListener;
@@ -41,9 +40,7 @@ import com.tushuangxi.smart.tv.lding.utils.TipUtil;
 import com.tushuangxi.smart.tv.library.router.UiPage;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
-
 import butterknife.BindView;
 
 
@@ -72,14 +69,12 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     protected void onRestart() {
         super.onRestart();
         HideUtil.initHide(mActivity);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         goSiteNavigation(15,1);
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -115,7 +110,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
             KVUtils.getInstance().removeString(AppGlobalConsts.Token);
         }
         String Token = KVUtils.getInstance().getString(AppGlobalConsts.Token);
-        Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
+//        Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
 
     }
 
@@ -143,7 +138,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     class Loader implements DataLoader<String> {
         @Override
         public String loadData() {
-
+            requestPermissionsMore();
             return null;
         }
     }
@@ -180,6 +175,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         if (all) {
                             //版本更新
                             getApkVersionUpdate(AppUtils.getVersionCode(mContext));
+
                         } else {
                             TipUtil.newThreadToast(R.string.not_granted_permission);
                         }
@@ -286,6 +282,14 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                }else {
 //                    TipUtil.showToast(mContext,R.string.not_granted_permission, 1000);
 //                }
+                Logger.w(TAG,"goUpdater...");
+                try {
+                    int i = 1 / 0;
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Logger.w(TAG,e.getMessage());
+                }
+
                 break;
 
             case R.id.bt_joinAuthor:
