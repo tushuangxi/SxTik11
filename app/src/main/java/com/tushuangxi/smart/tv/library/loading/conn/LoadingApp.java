@@ -67,6 +67,7 @@ public class LoadingApp extends Application {
         CommonLibConstant.init()
                 .setAppContext(mContext)
                 .setIsDebug(true)
+                .setIsShowLogcat(true) //是否显示悬浮  logcat
                 .setNoNetWorkRemind("无网络")
                 .setSharedPreferencesName("sp_app");
 

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -20,10 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+
+import com.tao.admin.loglib.Logger;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static com.tushuangxi.smart.tv.lding.other.CommonLibConstant.IS_SHOWLOGCAT;
 
 /**
  *  support api>=23.
@@ -50,8 +55,6 @@ public class FloatingLogcatView implements Runnable {
     private WindowManager mWindowManager;
 
     private static FloatingLogcatView instance = null;
-    //是否启动悬浮
-    private boolean b = true;
 
     public static FloatingLogcatView getInstance(final Context context) {
         if (instance == null) {
@@ -67,13 +70,13 @@ public class FloatingLogcatView implements Runnable {
     public FloatingLogcatView(@NonNull final Context context) {
         requireNotNull(context);
 //        if (requireOsVersion() && checkPermission(context)) {
-//            if (b){
+//            if (IS_SHOWLOGCAT){
 //                initView(context);
 //                mRootView.postDelayed(this, 500);
 //            }
 //        }
 
-        if (b){
+        if (IS_SHOWLOGCAT){
             initView(context);
             mRootView.postDelayed(this, 500);
         }
@@ -126,48 +129,59 @@ public class FloatingLogcatView implements Runnable {
         mConsoleText.setMaxLines(5);
         mConsoleText.setTextColor(0xffffffff);
         mConsoleText.setGravity(Gravity.BOTTOM);
+        //可滑动
+        mConsoleText.setScrollbarFadingEnabled(true);
+        mConsoleText.setMovementMethod(ScrollingMovementMethod.getInstance());
         mRootView.addView(mConsoleText, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mWindowManager.addView(mRootView, mWindowParams);
-        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-            private int initY;
 
+        mConsoleText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onDown(MotionEvent e) {
-                initY = mWindowParams.y;
+            public boolean onLongClick(View v) {
+                close();
                 return false;
             }
-
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                mWindowParams.y = (int) (initY + e2.getRawY() - e1.getRawY());
-                mWindowManager.updateViewLayout(mRootView, mWindowParams);
-                return true;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-                switchView();
-            }
         });
-        mRootView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                    mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-                    mWindowManager.updateViewLayout(mRootView, mWindowParams);
-                } else {
-                    mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-                    mWindowManager.updateViewLayout(mRootView, mWindowParams);
-                }
-                return mGestureDetector.onTouchEvent(event);
-            }
-        });
+//        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+//            private int initY;
+//
+//            @Override
+//            public boolean onDown(MotionEvent e) {
+//                initY = mWindowParams.y;
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onSingleTapUp(MotionEvent e) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+//                mWindowParams.y = (int) (initY + e2.getRawY() - e1.getRawY());
+//                mWindowManager.updateViewLayout(mRootView, mWindowParams);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onLongPress(MotionEvent e) {
+//                switchView();
+//            }
+//        });
+//        mRootView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+//                    mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+//                    mWindowManager.updateViewLayout(mRootView, mWindowParams);
+//                } else {
+//                    mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+//                    mWindowManager.updateViewLayout(mRootView, mWindowParams);
+//                }
+//                return mGestureDetector.onTouchEvent(event);
+//            }
+//        });
 
         mSettingView = new LinearLayout(context);
         mSettingView.setOrientation(LinearLayout.VERTICAL);
@@ -215,5 +229,14 @@ public class FloatingLogcatView implements Runnable {
             mConsoleText.setText(e.getLocalizedMessage());
         }
         mRootView.postDelayed(this, 500);
+    }
+
+
+    public void close() {
+        if (mWindowManager!= null){
+            mWindowManager.removeView(mRootView);
+            instance=null;
+        }
+        Logger.w("TAG","FloatingLogcatView  close   ....  FloatingLogcatView View  onDestroy" );
     }
 }

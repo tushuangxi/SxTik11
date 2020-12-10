@@ -18,8 +18,14 @@ public class CommonLibConstant {
 
     public static Context applicationContext;
     public static String noNetWorkRemind = "网络连接已断开,请检查网络";
+
+
     //是否是调试模式，默认是调试模式
     public static boolean IS_DEBUG = true;
+
+    //是否是调试模式，默认是不显示 悬浮Logcat
+    public static boolean IS_SHOWLOGCAT = false;
+
     private String LOCAL_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/";
 
     /**
@@ -43,6 +49,18 @@ public class CommonLibConstant {
         IS_DEBUG = isDebug;
         return this;
     }
+
+    /**
+     * 设置是不是 显示悬浮Logcat
+     *
+     * @param isShowLogcat
+     * @return
+     */
+    public CommonLibConstant setIsShowLogcat(boolean isShowLogcat) {
+        IS_SHOWLOGCAT = isShowLogcat;
+        return this;
+    }
+
 
     /**
      * 设置无网络提示语
