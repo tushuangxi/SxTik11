@@ -24,6 +24,7 @@ import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
+import com.tushuangxi.smart.tv.library.logcat.FloatingLogcatView;
 import com.tushuangxi.smart.tv.library.mmkv.KVUtils;
 import com.tushuangxi.smart.tv.lding.widget.LoadingDialogFg;
 import com.tushuangxi.smart.tv.library.imageloaderfactory.ImageLoaderUtils;
@@ -42,6 +43,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 import butterknife.BindView;
+
 
 
 public class InitActivity extends BaseActivity implements   interfaceUtilsAll.SiteNavigationRspView{
@@ -175,7 +177,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         if (all) {
                             //版本更新
                             getApkVersionUpdate(AppUtils.getVersionCode(mContext));
-
+                            new FloatingLogcatView(getApplicationContext());
                         } else {
                             TipUtil.newThreadToast(R.string.not_granted_permission);
                         }
