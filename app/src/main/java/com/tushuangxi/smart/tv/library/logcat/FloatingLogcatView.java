@@ -50,6 +50,9 @@ public class FloatingLogcatView implements Runnable {
     private WindowManager mWindowManager;
 
     private static FloatingLogcatView instance = null;
+    //是否启动悬浮
+    private boolean b = true;
+
     public static FloatingLogcatView getInstance(final Context context) {
         if (instance == null) {
             synchronized (FloatingLogcatView.class) {
@@ -63,7 +66,14 @@ public class FloatingLogcatView implements Runnable {
 
     public FloatingLogcatView(@NonNull final Context context) {
         requireNotNull(context);
-        if (requireOsVersion() && checkPermission(context)) {
+//        if (requireOsVersion() && checkPermission(context)) {
+//            if (b){
+//                initView(context);
+//                mRootView.postDelayed(this, 500);
+//            }
+//        }
+
+        if (b){
             initView(context);
             mRootView.postDelayed(this, 500);
         }
@@ -102,6 +112,14 @@ public class FloatingLogcatView implements Runnable {
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){//6.0+
+            mWindowParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        }else {
+            mWindowParams.type =  WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        }
+
         mWindowParams.gravity = Gravity.TOP | Gravity.LEFT;
         mRootView.setBackgroundColor(0x99000000);
         mConsoleText = new TextView(context);
@@ -197,9 +215,5 @@ public class FloatingLogcatView implements Runnable {
             mConsoleText.setText(e.getLocalizedMessage());
         }
         mRootView.postDelayed(this, 500);
-    }
-
-    public void show() {
-
     }
 }
