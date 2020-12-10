@@ -77,6 +77,10 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     protected void onResume() {
         super.onResume();
         goSiteNavigation(15,1);
+
+        if (hasAll){
+            FloatingLogcatView.getInstance(getApplicationContext());
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -177,7 +181,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         if (all) {
                             //版本更新
                             getApkVersionUpdate(AppUtils.getVersionCode(mContext));
-                            new FloatingLogcatView(getApplicationContext());
+                            FloatingLogcatView.getInstance(getApplicationContext());
                         } else {
                             TipUtil.newThreadToast(R.string.not_granted_permission);
                         }

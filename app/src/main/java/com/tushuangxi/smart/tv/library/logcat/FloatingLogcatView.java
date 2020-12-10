@@ -25,6 +25,11 @@ import java.io.InputStreamReader;
 
 import static android.content.Context.WINDOW_SERVICE;
 
+/**
+ *  support api>=23.
+ *  https://github.com/zhangruize/FloatingLogcat
+ */
+
 //https://stackoverflow.com/questions/32224452/android-unable-to-add-window-permission-denied-for-this-window-type
 //https://stackoverflow.com/questions/4481226/creating-a-system-overlay-window-always-on-top
 @SuppressWarnings("CatchMayIgnoreException")
@@ -43,6 +48,18 @@ public class FloatingLogcatView implements Runnable {
     private WindowManager.LayoutParams mWindowParams;
     private GestureDetector mGestureDetector;
     private WindowManager mWindowManager;
+
+    private static FloatingLogcatView instance = null;
+    public static FloatingLogcatView getInstance(final Context context) {
+        if (instance == null) {
+            synchronized (FloatingLogcatView.class) {
+                if (instance == null) {// 多线程安全单例模式(使用双重同步锁)
+                    instance = new FloatingLogcatView(context);
+                }
+            }
+        }
+        return instance;
+    }
 
     public FloatingLogcatView(@NonNull final Context context) {
         requireNotNull(context);
@@ -180,5 +197,9 @@ public class FloatingLogcatView implements Runnable {
             mConsoleText.setText(e.getLocalizedMessage());
         }
         mRootView.postDelayed(this, 500);
+    }
+
+    public void show() {
+
     }
 }
