@@ -79,7 +79,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         goSiteNavigation(15,1);
 
         if (hasAll){
-            FloatingLogcatView.getInstance(getApplicationContext());
+//            FloatingLogcatView.getInstance(getApplicationContext());
         }
     }
 

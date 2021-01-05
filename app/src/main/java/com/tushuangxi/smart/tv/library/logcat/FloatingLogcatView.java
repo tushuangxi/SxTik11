@@ -129,8 +129,9 @@ public class FloatingLogcatView implements Runnable {
         mConsoleText.setMaxLines(5);
         mConsoleText.setTextColor(0xffffffff);
         mConsoleText.setGravity(Gravity.BOTTOM);
-        //可滑动
+        //滚动条时刻显示
         mConsoleText.setScrollbarFadingEnabled(true);
+        //可滑动
         mConsoleText.setMovementMethod(ScrollingMovementMethod.getInstance());
         mRootView.addView(mConsoleText, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 

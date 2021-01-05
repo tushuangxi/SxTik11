@@ -76,7 +76,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
             setContentView(getContentViewLayoutView());
         }
         mContext=this;
-        //去掉标题栏
+        //去掉标题栏  1. 继承android.support.v7.app.AppCompatActivity   使用 if(){ getSupportActionBar().hide(); } 隐藏标题栏
+        // 2.继承android.app.Activity或者android.support.v4.app.FragmentActivity  使用 requestWindowFeature(Window.FEATURE_NO_TITLE);隐藏标题栏
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
@@ -95,6 +96,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
 
         addOnClickListeners();
         setTranslucentStatus(isApplyStatusBarTranslucency());
+        changeStatusBarTextColor(true);
 
         //网络状态 观察者
         NetworkManager.getInstance().initialized(this);
@@ -312,6 +314,20 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         if (on) {
             // 默认着色状态栏
             SetStatusBarColor();
+        }
+    }
+    /**
+     * 改变状态栏字体颜色值
+     *
+     * @param isBlack
+     */
+    private void changeStatusBarTextColor(boolean isBlack) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (isBlack) {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//设置状态栏黑色字体
+            } else {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);//恢复状态栏白色字体
+            }
         }
     }
 
