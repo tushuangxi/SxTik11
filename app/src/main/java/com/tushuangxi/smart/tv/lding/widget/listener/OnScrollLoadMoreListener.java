@@ -1,11 +1,9 @@
 package com.tushuangxi.smart.tv.lding.widget.listener;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
-import com.classichu.classichu.app.CLog;
-import com.classichu.classichu.basic.tool.ViewTool;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Created by louisgeek on 2017/3/10.
@@ -102,8 +100,8 @@ public abstract class OnScrollLoadMoreListener extends RecyclerView.OnScrollList
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-        CLog.d("newState:"+newState);
-        CLog.d("isReachedBottom:"+isReachedBottom(recyclerView));
+//        CLog.d("newState:"+newState);
+//        CLog.d("isReachedBottom:"+isReachedBottom(recyclerView));
     }
 
     public abstract void onReachedBottom();

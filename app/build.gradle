@@ -171,5 +171,6 @@ dependencies {
 
     //MMKV
     implementation 'com.tencent:mmkv-static:1.2.5'
-
+    //https://github.com/giswangsj/CrashCanary
+    debugImplementation  'com.github.giswangsj:CrashCanary:1.0.3'
 }

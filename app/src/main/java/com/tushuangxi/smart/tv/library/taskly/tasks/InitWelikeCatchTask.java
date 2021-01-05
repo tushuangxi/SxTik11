@@ -57,7 +57,7 @@ public class InitWelikeCatchTask extends MainTask {
 //        });
 
         //方式二推荐  报错不会崩溃   全局捕获Crash。信NeverCrash，永不Crash。
-        NeverCrash.init(new NeverCrash.CrashHandler() {
+       /* NeverCrash.init(new NeverCrash.CrashHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable ex) {
 //                ALogger.e(TAG, Log.getStackTraceString(ex));
@@ -69,7 +69,10 @@ public class InitWelikeCatchTask extends MainTask {
                 LogcatUtils.exportLogcat(ex.getStackTrace().toString());
 //                showToast(e.getMessage());
             }
-        });
+        });*/
+
+
+       
     }
 
     /**

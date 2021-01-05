@@ -289,6 +289,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                    TipUtil.showToast(mContext,R.string.not_granted_permission, 1000);
 //                }
                 Logger.w(TAG,"goUpdater...");
+                int i2 = 1 / 0;
                 try {
                     int i = 1 / 0;
                 }catch (Exception e){
@@ -311,6 +312,9 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
                     UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
                 }
+
+                int a = 10;
+                Logger.w(TAG,"a:..."+a/0);
                 break;
 
             default:

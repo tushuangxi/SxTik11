@@ -1,8 +1,7 @@
 package com.tushuangxi.smart.tv.lding.widget.listener;
 
-import android.support.v7.widget.RecyclerView;
 
-import com.classichu.classichu.app.CLog;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by louisgeek on 2016/12/27.
@@ -29,11 +28,11 @@ public abstract class OnScrollWithUpDownListener extends RecyclerView.OnScrollLi
             if (dy > 0) {
                 //往上滑动   往下拉
                 onScrollUp();
-                CLog.i("onScrollUp");
+//                CLog.i("onScrollUp");
             } else if (dy < 0) {
                 //往下滑动   往上拉
                 onScrollDown();
-                CLog.i("onScrollDown");
+//                CLog.i("onScrollDown");
             }
         }
     }
