@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import androidx.lifecycle.Observer;
+
 import com.billy.android.preloader.PreLoader;
 import com.billy.android.preloader.PreLoaderWrapper;
 import com.billy.android.preloader.interfaces.DataListener;
@@ -19,6 +22,8 @@ import com.fengchen.uistatus.UiStatusController;
 import com.fengchen.uistatus.annotation.UiStatus;
 import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
+import com.tushuangxi.smart.tv.lding.entity.livedata.Data;
+import com.tushuangxi.smart.tv.lding.entity.livedata.DataLiveData;
 import com.tushuangxi.smart.tv.lding.eventbus.EventMessage;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
@@ -59,7 +64,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     ImageView iv_ImageView;
     @BindView(R.id.bt_joinAuthor)
     Button bt_joinAuthor;
-
+    public static Data data = new Data();
 
     String url = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2897251542,2330444017&fm=26&gp=0.jpg";
     @Override
@@ -117,6 +122,17 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         }
         String Token = KVUtils.getInstance().getString(AppGlobalConsts.Token);
 //        Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
+
+
+        //监听Data数据变化  回调
+        DataLiveData.getInstance().observe(this, new Observer<Data>() {
+            @Override
+            public void onChanged(Data data) {
+//                mTextView.setText(data.getName());
+                Logger.w(TAG, data.getName());
+            }
+        });
+
 
     }
 
@@ -289,14 +305,11 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                    TipUtil.showToast(mContext,R.string.not_granted_permission, 1000);
 //                }
                 Logger.w(TAG,"goUpdater...");
-                int i2 = 1 / 0;
-                try {
-                    int i = 1 / 0;
-                }catch (Exception e){
-                    e.printStackTrace();
-                    Logger.w(TAG,e.getMessage());
-                }
 
+                //修改 Data
+                Data data = DataLiveData.getInstance().getValue();
+                data.setName("我是" + Math.random());
+                DataLiveData.getInstance().setValue(data);
                 break;
 
             case R.id.bt_joinAuthor:
