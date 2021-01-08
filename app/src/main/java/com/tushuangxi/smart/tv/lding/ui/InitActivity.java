@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 
@@ -29,6 +30,12 @@ import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
+import com.tushuangxi.smart.tv.library.asyncchain.AsyncChain;
+import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainError;
+import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainErrorCallback;
+import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainRunnable;
+import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainTask;
+import com.tushuangxi.smart.tv.library.imageloaderfactory.cofig.MainActivity;
 import com.tushuangxi.smart.tv.library.logcat.FloatingLogcatView;
 import com.tushuangxi.smart.tv.library.mmkv.KVUtils;
 import com.tushuangxi.smart.tv.lding.widget.LoadingDialogFg;
@@ -134,6 +141,58 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         });
 
 
+        //异步任务
+        asyncChainTask();
+    }
+
+    private void asyncChainTask() {
+        AsyncChain.withWork(new AsyncChainRunnable(){
+                    @Override
+                    public void run(AsyncChainTask task){
+                        //执行一个异步操作
+//                        doSomething1(new someCallback1(){
+//                            void callback(newResult){
+//                                //标识一个行为出错了
+//                                 task.onError(new AsyncChainError(""))
+//                                //标识一个异步操作的结束，进行下一步操作
+//                                task.onNext(newResult);
+//                            }
+//                        })
+                        task.onError(new AsyncChainError("出错了"));
+                        Logger.w("出错了1");
+                        Logger.w(TAG,"继续1");
+                        task.onNext("继续");
+                        Logger.w(TAG,"继续");
+                    }
+                })
+                .withMain(new AsyncChainRunnable(){
+                    @Override
+                    public void run(AsyncChainTask task){
+                        //使用异步操作的结果更新UI
+//                        updateUI(lastResult);
+                        //标识整个异步链式结束了，即使后面还有行为没有执行也不会继续下去了
+                        Logger.w(TAG,"异步链式结束了");
+                        task.onComplete();
+                    }
+                })
+                .errorMain(new AsyncChainErrorCallback(){
+                    @Override
+                    public void error(AsyncChainError error) throws Exception {
+                        //在主线程处理错误
+                        //一旦error*方法执行，异步链就中断了
+                        Logger.w(TAG,"异步链就中断了");
+                    }
+                })
+                .go(mContext);
+
+        //延迟1000毫秒，然后Toast提示
+        AsyncChain.delay(1000).withMain(new AsyncChainRunnable() {
+                    @Override
+                    public void run(AsyncChainTask task) throws Exception {
+                        Logger.w(TAG,"延迟1000毫秒");
+                        task.onComplete();
+                    }
+                }).go(mContext);
     }
 
     @Override
