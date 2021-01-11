@@ -162,7 +162,7 @@ public class Fragment2 extends Fragment  {
         Glide.with(context)
                 .setDefaultRequestOptions(
                         new RequestOptions()
-                                .frame(2000000)
+                                .frame(3000000)
                                 .centerCrop()
 //                                .error(R.mipmap.eeeee)//可以忽略
 //                                .placeholder(R.mipmap.ppppp)//可以忽略

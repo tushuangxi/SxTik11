@@ -161,7 +161,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
         //增加封面
         jcVideoPlayerStandard.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        loadCover(jcVideoPlayerStandard.thumbImageView,"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4198741971,2693253849&fm=26&gp=0.jpg", LoadingApp.getContext());
+        loadCover(jcVideoPlayerStandard.thumbImageView,"http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4", LoadingApp.getContext());
     }
     private void asyncChainTask() {
         AsyncChain.withWork(new AsyncChainRunnable(){
@@ -519,7 +519,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
         Glide.with(context)
                 .setDefaultRequestOptions(
                         new RequestOptions()
-                                .frame(2000000)
+                                .frame(3000000)
                                 .centerCrop()
 //                                .error(R.mipmap.eeeee)//可以忽略
 //                                .placeholder(R.mipmap.ppppp)//可以忽略
