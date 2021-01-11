@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.KeyEvent;
@@ -19,6 +20,8 @@ import com.billy.android.preloader.PreLoader;
 import com.billy.android.preloader.PreLoaderWrapper;
 import com.billy.android.preloader.interfaces.DataListener;
 import com.billy.android.preloader.interfaces.DataLoader;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.fengchen.uistatus.UiStatusController;
 import com.fengchen.uistatus.annotation.UiStatus;
 import com.tao.admin.loglib.Logger;
@@ -26,6 +29,7 @@ import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.entity.livedata.Data;
 import com.tushuangxi.smart.tv.lding.entity.livedata.DataLiveData;
 import com.tushuangxi.smart.tv.lding.eventbus.EventMessage;
+import com.tushuangxi.smart.tv.lding.http.ApiConstants;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
@@ -36,6 +40,7 @@ import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainErrorCallback;
 import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainRunnable;
 import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainTask;
 import com.tushuangxi.smart.tv.library.imageloaderfactory.cofig.MainActivity;
+import com.tushuangxi.smart.tv.library.loading.conn.LoadingApp;
 import com.tushuangxi.smart.tv.library.logcat.FloatingLogcatView;
 import com.tushuangxi.smart.tv.library.mmkv.KVUtils;
 import com.tushuangxi.smart.tv.lding.widget.LoadingDialogFg;
@@ -55,7 +60,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 import butterknife.BindView;
-
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 
 public class InitActivity extends BaseActivity implements   interfaceUtilsAll.SiteNavigationRspView{
@@ -71,6 +76,8 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     ImageView iv_ImageView;
     @BindView(R.id.bt_joinAuthor)
     Button bt_joinAuthor;
+    @BindView(R.id.jcVideoPlayerStandard)
+    JCVideoPlayerStandard jcVideoPlayerStandard;
     public static Data data = new Data();
 
     String url = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2897251542,2330444017&fm=26&gp=0.jpg";
@@ -139,10 +146,21 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 Logger.w(TAG, data.getName());
             }
         });
-
-
         //异步任务
         asyncChainTask();
+        initJCVideoPlayerStandard();
+    }
+
+    private void initJCVideoPlayerStandard() {
+        jcVideoPlayerStandard.setVisibility(View.VISIBLE);
+        String videoUrl = KVUtils.getInstance().getString(AppGlobalConsts.VIDE_OURL);
+        jcVideoPlayerStandard.setUp("http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4", JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+        //增加封面1
+//        jcVideoPlayerStandard.thumbImageView.setImageURI(Uri.parse("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4198741971,2693253849&fm=26&gp=0.jpg"));
+
+        //增加封面
+        jcVideoPlayerStandard.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        loadCover(jcVideoPlayerStandard.thumbImageView,"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4198741971,2693253849&fm=26&gp=0.jpg",LoadingApp.getContext());
     }
 
     private void asyncChainTask() {
@@ -491,6 +509,24 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //            TipUtil.newThreadToast("网络已断开!");
         }
 //        Logger.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
+    }
+
+    /**
+     * 加载第四秒的帧数作为封面
+     *  url就是视频的地址
+     */
+    public static void loadCover(ImageView imageView, String url, Context context) {
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Glide.with(context)
+                .setDefaultRequestOptions(
+                        new RequestOptions()
+                                .frame(2000000)
+                                .centerCrop()
+//                                .error(R.mipmap.eeeee)//可以忽略
+//                                .placeholder(R.mipmap.ppppp)//可以忽略
+                )
+                .load(url)
+                .into(imageView);
     }
 
 

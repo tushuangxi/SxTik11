@@ -173,6 +173,10 @@ dependencies {
     implementation 'com.tencent:mmkv-static:1.2.5'
     //https://github.com/giswangsj/CrashCanary
     debugImplementation  'com.github.giswangsj:CrashCanary:1.0.3'
-
+    //DataLiveData.getInstance().observe( )  //监听Data数据变化  回调
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //动画
+    implementation 'com.github.florent37:viewanimator:1.0.5'
+    //video
+    implementation 'fm.jiecao:jiecaovideoplayer:5.7'
 }
