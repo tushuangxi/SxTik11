@@ -77,6 +77,7 @@
         <activity android:name="com.tushuangxi.smart.tv.lding.ui.outsidechain.SiteNavigationDetailsActivity" android:theme="@style/NoTitle" />
         <activity android:name="com.tushuangxi.smart.tv.lding.ui.NetWorkLostActivity"   android:theme="@style/Transparent"  android:launchMode="singleTask"/>
         <activity android:name=".lding.ui.TestActivity" />
+        <activity android:name=".lding.ui.QianhaiActivity" />
 
         <!-- 导航 -->
         <service android:name="com.tushuangxi.smart.tv.lding.rerxmvp.service.navigationview.FloatingNavigationService" />

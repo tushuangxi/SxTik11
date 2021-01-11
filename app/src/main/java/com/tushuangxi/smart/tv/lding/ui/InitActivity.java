@@ -152,7 +152,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     }
 
     private void initJCVideoPlayerStandard() {
-        jcVideoPlayerStandard.setVisibility(View.VISIBLE);
+        jcVideoPlayerStandard.setVisibility(View.GONE);
         String videoUrl = KVUtils.getInstance().getString(AppGlobalConsts.VIDE_OURL);
         jcVideoPlayerStandard.setUp("http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4", JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
         //增加封面1
@@ -387,6 +387,8 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 Data data = DataLiveData.getInstance().getValue();
                 data.setName("我是" + Math.random());
                 DataLiveData.getInstance().setValue(data);
+
+                UiPage.init(mContext).with(mActivity, QianhaiActivity.class,false);
                 break;
 
             case R.id.bt_joinAuthor:

@@ -160,7 +160,6 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //        jcVideoPlayerStandard.thumbImageView.setImageURI(Uri.parse("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4198741971,2693253849&fm=26&gp=0.jpg"));
 
         //增加封面
-        jcVideoPlayerStandard.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         loadCover(jcVideoPlayerStandard.thumbImageView,"http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4", LoadingApp.getContext());
     }
     private void asyncChainTask() {
@@ -387,6 +386,8 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 Data data = DataLiveData.getInstance().getValue();
                 data.setName("我是" + Math.random());
                 DataLiveData.getInstance().setValue(data);
+
+
                 break;
 
             case R.id.bt_joinAuthor:
