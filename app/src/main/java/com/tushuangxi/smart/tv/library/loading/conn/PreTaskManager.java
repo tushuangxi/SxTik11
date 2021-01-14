@@ -7,6 +7,7 @@ import com.billy.android.swipe.SmartSwipeBack;
 import com.tushuangxi.smart.tv.lding.utils.LaunchTimer;
 import com.tushuangxi.smart.tv.library.taskly.TaskDispatcher;
 import com.tushuangxi.smart.tv.library.taskly.tasks.GetDeviceIdTask;
+import com.tushuangxi.smart.tv.library.taskly.tasks.InitMainThreadWatchDogTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitUiStatusTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitImageLoadTask;
 import com.tushuangxi.smart.tv.library.taskly.tasks.InitJPushTask;
@@ -40,6 +41,7 @@ public enum PreTaskManager {
         TaskDispatcher.init(mContext);
         TaskDispatcher dispatcher = TaskDispatcher.createInstance();
         dispatcher.addTask(new InitUiWatchTask())
+                .addTask(new InitMainThreadWatchDogTask())
                 .addTask(new InitSplashKitTask(app))
                 .addTask(new InitWelikeCatchTask(mContext))
                 .addTask(new InitUiStatusTask())

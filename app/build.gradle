@@ -105,6 +105,8 @@ dependencies {
             }
         }
     }
+    //https://github.com/TsmileAssassin/MainThread-WatchDog  //看门狗在主线程中发现android耗时的操作
+    implementation 'com.tsmile.debug:mainthreadwatchdog:1.0.1'
 
     //全局捕获Crash。信NeverCrash，永不Crash。
     implementation 'com.king.thread:nevercrash:1.0.0'

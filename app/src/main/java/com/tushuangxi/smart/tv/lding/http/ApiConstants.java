@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class ApiConstants {
     //测试环境
-    public static final  String HOST_HENGYUANIOT = "http://47.105.135.162:4042/hengyuaniot-party-building/";
+    public static final  String HOST_HENGYUANIOT = "http://xxp.hangtianyun.net/hengyuaniot-party-building/";
 
 
     //正式环境
