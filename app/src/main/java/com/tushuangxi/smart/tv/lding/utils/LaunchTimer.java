@@ -2,6 +2,9 @@ package com.tushuangxi.smart.tv.lding.utils;
 
 import android.util.Log;
 
+import com.tao.admin.loglib.Logger;
+import com.tushuangxi.smart.tv.library.alphatask.TaskA;
+
 /**
  * 记录启动时间
  *  LaunchTimer.startTime();
@@ -9,6 +12,8 @@ import android.util.Log;
  *  LaunchTimer.endTime();
  */
 public class LaunchTimer {
+
+    static String TAG = "TAG: "+ LaunchTimer.class.getSimpleName()+"....";
     private static long mTime;
 
     //开启时间  startRecord
@@ -18,6 +23,6 @@ public class LaunchTimer {
 
     //结束时间  endRecord
     public static void endTime() {
-        Log.d("InitTask","启动时间：" + (System.currentTimeMillis() - mTime));
+        Logger.w(TAG, "启动时间：" + (System.currentTimeMillis() - mTime));
     }
 }
