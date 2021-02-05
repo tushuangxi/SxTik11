@@ -77,7 +77,7 @@ public class LoadingApp extends Application {
                     .configAllowLog(true)//是否输出日志
                     .configShowBorders(true)//是否排版显示
                     .configTagPrefix("ViseLog")//设置标签前缀
-                    .configFormatTag("%d{HH:mm:ss:SSS} %t %c{-5}")//个性化设置标签，默认显示包名
+                    .configFormatTag("%d{HH:mm:ss:SSS} %t %c{-5}")//个性化设置标签，默认显示包名//%d	当前时间  %t当前线程名称  %c线程信息和类路径
                     .configLevel(Log.VERBOSE);//设置日志最小输出级别，默认Log.VERBOSE
             ViseLog.plant(new DefaultTree());//添加打印日志信息到Logcat的树
 
