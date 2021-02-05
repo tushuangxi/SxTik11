@@ -2,8 +2,12 @@ package com.tushuangxi.smart.tv.library.loading.conn;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.multidex.MultiDex;
 import com.tao.admin.loglib.IConfig;
 import com.tao.admin.loglib.Logger;
@@ -17,10 +21,17 @@ import com.lky.toucheffectsmodule.TouchEffectsManager;
 import com.lky.toucheffectsmodule.types.TouchEffectsViewType;
 import com.lky.toucheffectsmodule.types.TouchEffectsWholeType;
 import com.tushuangxi.smart.tv.lding.utils.LogcatUtils;
+import com.vise.log.ViseLog;
+import com.vise.log.inner.DefaultTree;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.SoftReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * LoadingApp
@@ -61,6 +72,44 @@ public class LoadingApp extends Application {
             Logger.i(TAG, "jsonData");
             Logger.w(TAG,"jsonData");
             Logger.e(TAG, jsonData);
+
+            ViseLog.getLogConfig()
+                    .configAllowLog(true)//是否输出日志
+                    .configShowBorders(true)//是否排版显示
+                    .configTagPrefix("ViseLog")//设置标签前缀
+                    .configFormatTag("%d{HH:mm:ss:SSS} %t %c{-5}")//个性化设置标签，默认显示包名
+                    .configLevel(Log.VERBOSE);//设置日志最小输出级别，默认Log.VERBOSE
+            ViseLog.plant(new DefaultTree());//添加打印日志信息到Logcat的树
+
+            //打印基本信息
+            ViseLog.d("test message");
+            //打印基本对象
+            ViseLog.d(new Boolean(true));
+            //打印Bundle对象
+            ViseLog.d(new Bundle());
+            //打印Intent对象
+            ViseLog.d(new Intent());
+            //打印Reference对象
+            ViseLog.d(new SoftReference(0));
+            //打印Throwable对象
+            ViseLog.e(new NullPointerException("this object is null!"));
+            //打印List集合
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                list.add("test" + i);
+            }
+            ViseLog.d(list);
+            //打印Map集合
+            Map<String, String> map = new HashMap<>();
+            for (int i = 0; i < 5; i++) {
+                map.put("xyy" + i, "test" + i);
+            }
+            ViseLog.d(map);
+            //打印JSON字符串
+            ViseLog.json(jsonData);
+            //打印XML字符串
+            String xml = "<xyy><test1><test2>key</test2></test1><test3>name</test3><test4>value</test4></xyy>";
+            ViseLog.xml(xml);
         }
 
         //common依赖库的相关初始化

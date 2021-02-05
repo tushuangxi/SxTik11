@@ -34,6 +34,7 @@ import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
+import com.tushuangxi.smart.tv.lding.widget.FocusViewUtils;
 import com.tushuangxi.smart.tv.library.asyncchain.AsyncChain;
 import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainError;
 import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainErrorCallback;
@@ -402,11 +403,9 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         }
                     },3000);
 
-                    UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
+//                    UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
                 }
 
-                int a = 10;
-                Logger.w(TAG,"a:..."+a/0);
                 break;
 
             default:

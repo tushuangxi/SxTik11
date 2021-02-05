@@ -62,7 +62,7 @@
             android:multiprocess="true"/>
 
 
-        <activity android:name="com.tushuangxi.smart.tv.lding.ui.InitActivity"
+        <activity android:name=".lding.ui.InitActivity"
             android:theme="@style/InitTheme"
              >
             <intent-filter>
