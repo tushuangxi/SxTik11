@@ -18,12 +18,12 @@ package com.tushuangxi.smart.tv.lding.http;
 
 public class HostType {
 
-    /**
-     *    http://47.105.135.162:4042/hengyuaniot-party-building   PartyMemberRsp  党员风采 list
-     *
-     */
 
-    public static final int TYPE_HOST_HENGYUANIOT = 0x01;
+    public static final int TYPE_HOST_QA = 0x01;
+
+    public static final int TYPE_HOST_QB = 0x02;
+
+    public static final int TYPE_HOST_ONLINE = 0x03;
 
 
 }

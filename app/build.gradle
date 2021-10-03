@@ -47,6 +47,41 @@ android {
         }
 
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        qa {
+            applicationIdSuffix ".qa"
+            resValue "string","app_name", "qa框架"
+            buildConfigField("String", "BASE_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
+            buildConfigField("String", "MANAGEMENT", "\"http://panel.hengyuanguochuang.com/\"")
+            buildConfigField("String", "PANEL", "\"http://panel.hengyuanguochuang.com/index3.html/\"")
+            manifestPlaceholders = [
+                    APP_ICON:           "@mipmap/ic_launcher_round",
+            ]
+        }
+        qb {
+            applicationIdSuffix ".qb"
+            resValue "string","app_name", "qb框架"
+            buildConfigField("String", "BASE_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
+            buildConfigField("String", "MANAGEMENT", "\"http://panel.hengyuanguochuang.com/\"")
+            buildConfigField("String", "PANEL", "\"http://panel.hengyuanguochuang.com/index3.html/\"")
+            manifestPlaceholders = [
+                    APP_ICON:           "@mipmap/ic_launcher_round",
+            ]
+        }
+        online {
+            applicationIdSuffix ".online"
+            resValue "string","app_name", "online框架"
+            buildConfigField("String", "BASE_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
+            buildConfigField("String", "MANAGEMENT", "\"http://panel.hengyuanguochuang.com/\"")
+            buildConfigField("String", "PANEL", "\"http://panel.hengyuanguochuang.com/index3.html/\"")
+            manifestPlaceholders = [
+                    APP_ICON:           "@mipmap/ic_launcher_round",
+            ]
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

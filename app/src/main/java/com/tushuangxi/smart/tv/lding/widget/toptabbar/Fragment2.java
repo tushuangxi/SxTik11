@@ -67,7 +67,7 @@ public class Fragment2 extends Fragment  {
         tv_pptPlay = view.findViewById(R.id.tv_pptPlay);
         mGsy = view.findViewById(R.id.gsy_player);
         String videoUrl = SpfsUtils.readString(LoadingApp.getContext(), AppGlobalConsts.VIDE_OURL);
-        mGsy.setUp(ApiConstants.HOST_HENGYUANIOT+videoUrl, true, "");
+        mGsy.setUp(ApiConstants.BASE_HOST+videoUrl, true, "");
 
         // 指定时间进度播放（至少3位数）
 //        mGsy.setSeekOnStart(60123);
@@ -81,7 +81,7 @@ public class Fragment2 extends Fragment  {
 //        Glide.with(LoadingApp.getContext()).load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg").into(imageView);
 
         //增加封面2
-        loadCover(imageView,ApiConstants.HOST_HENGYUANIOT+videoUrl,LoadingApp.getContext());
+        loadCover(imageView,ApiConstants.BASE_HOST+videoUrl,LoadingApp.getContext());
 
         //增加title
         mGsy.getTitleTextView().setVisibility(View.VISIBLE);

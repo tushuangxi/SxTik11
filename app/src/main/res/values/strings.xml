@@ -1,5 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">框架</string>
+    <string name="app_name_qa">qa框架</string>
+    <string name="app_name_qb">qb框架</string>
+    <string name="app_name_online">online框架</string>
+
     <string name="network_connection_lost">网络连接断开!</string>
     <string name="no_matching_company">没有匹配的公司!</string>
     <string name="network_lost">网络连接断开!</string>

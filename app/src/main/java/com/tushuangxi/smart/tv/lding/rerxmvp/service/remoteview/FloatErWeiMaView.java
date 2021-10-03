@@ -76,7 +76,7 @@ public class FloatErWeiMaView extends RelativeLayout {
         if (!TextUtils.isEmpty(floatId)){
             iv_creat_erweima.setVisibility(View.VISIBLE);
             Glide.with(context)
-                    .load( ApiConstants.HOST_HENGYUANIOT+floatQrCodeUrl+"")
+                    .load( ApiConstants.BASE_HOST+floatQrCodeUrl+"")
                     .into(iv_creat_erweima);
             if (!TextUtils.isEmpty(EchoClientHandler.msgStr)){
                 tv_registerNum.setText("在线学员: "+EchoClientHandler.msgStr+"人");

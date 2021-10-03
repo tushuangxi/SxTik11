@@ -3,6 +3,7 @@ package com.tushuangxi.smart.tv.lding.rerxmvp.model;
 import android.content.Context;
 
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
+import com.tushuangxi.smart.tv.lding.http.ApiConstants;
 import com.tushuangxi.smart.tv.lding.http.HostType;
 import com.tushuangxi.smart.tv.lding.http.RetrofitManager;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
@@ -46,7 +47,7 @@ public  class GetAllDataListModelImpl implements interfaceUtilsAll.SubjectAllLis
      */
     @Override
     public  Subscription requestSiteNavigationRspList(final interfaceUtilsAll.RequestCallback<SiteNavigationRsp> callback, RequestBody json, Context context) {
-        return RetrofitManager.getDefault(HostType.TYPE_HOST_HENGYUANIOT).getSiteNavigationRspObservable(json)
+        return RetrofitManager.getDefault(ApiConstants.BASE_HOST).getSiteNavigationRspObservable(json)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {

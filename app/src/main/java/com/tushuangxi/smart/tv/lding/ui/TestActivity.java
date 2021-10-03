@@ -478,7 +478,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                            int versionNumber = apkVersionUpdateRsp.getResult().getVersionNumber();
 //                            String url = apkVersionUpdateRsp.getResult().getUrl();
 //                            //拼接
-//                            String apkUrl = ApiConstants.HOST_HENGYUANIOT + url;
+//                            String apkUrl = ApiConstants.BASE_HOST + url;
 //                            if (!TextUtils.isEmpty(apkUrl)) {
 //                                updateCheck(versionNumber, apkUrl);
 //                            }
