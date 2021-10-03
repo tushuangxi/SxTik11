@@ -1,9 +1,7 @@
 package com.tushuangxi.smart.tv.lding.utils;
 
-import android.util.Log;
-
 import com.tao.admin.loglib.Logger;
-import com.tushuangxi.smart.tv.library.alphatask.TaskA;
+
 
 /**
  * 记录启动时间

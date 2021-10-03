@@ -33,6 +33,8 @@ import static com.tushuangxi.smart.tv.lding.other.CommonLibConstant.IS_SHOWLOGCA
 /**
  *  support api>=23.
  *  https://github.com/zhangruize/FloatingLogcat
+ *
+ *  FloatingLogcatView.getInstance(mContext);
  */
 
 //https://stackoverflow.com/questions/32224452/android-unable-to-add-window-permission-denied-for-this-window-type

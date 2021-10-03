@@ -273,7 +273,6 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         if (all) {
                             //版本更新
                             getApkVersionUpdate(AppUtils.getVersionCode(mContext));
-                            FloatingLogcatView.getInstance(mContext);
                         } else {
                             TipUtil.newThreadToast(R.string.not_granted_permission);
                         }

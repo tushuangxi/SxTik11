@@ -261,8 +261,8 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
                 .constantRequest()
                 // 申请悬浮窗权限
-                .permission(Permission.SYSTEM_ALERT_WINDOW)
-                .permission(Permission.SYSTEM_ALERT_WINDOW)
+//                .permission(Permission.SYSTEM_ALERT_WINDOW)
+//                .permission(Permission.SYSTEM_ALERT_WINDOW)
                 // 申请单个权限
 //                .permission(Permission.CAMERA)
                 // 申请多个权限
@@ -275,7 +275,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         if (all) {
                             //版本更新
                             getApkVersionUpdate(AppUtils.getVersionCode(mContext));
-                            FloatingLogcatView.getInstance(mContext);
+
                         } else {
                             TipUtil.newThreadToast(R.string.not_granted_permission);
                         }
