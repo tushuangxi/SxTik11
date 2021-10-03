@@ -57,9 +57,4 @@ public class ApiConstants {
         Log.d("myTest","请求host:"+host);
         return host;
     }
-
-
-
-
-
 }

@@ -50,27 +50,12 @@ public class RetrofitManager {
     //APIService
     private static ApiService apiService;
 
-    public RetrofitManager(String baseHost) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseHost)//指定host
-                .client(getOkHttpClient())//指定OKHttpClient
-                .addConverterFactory(GsonConverterFactory.create())//指定转换器，不同的网络请求API规范可自定义转换器
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-
-        //创建APIService
-        apiService = retrofit.create(ApiService.class);
+    public RetrofitManager() {
     }
 
-//    public RetrofitManager(int hostType) {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(ApiConstants.getHost(hostType))//指定host
-//                .client(getOkHttpClient())//指定OKHttpClient
-//                .addConverterFactory(GsonConverterFactory.create())//指定转换器，不同的网络请求API规范可自定义转换器
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-//
-//        //创建APIService
-//        apiService = retrofit.create(ApiService.class);
-//    }
+    public RetrofitManager(int hostType) {
+    }
+
 
     // 配置OkHttpClient
     private static OkHttpClient getOkHttpClient() {
@@ -94,39 +79,38 @@ public class RetrofitManager {
         return mOkHttpClient;
     }
 
-//    public static RetrofitManager getDefault(int hostType) {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(ApiConstants.getHost(hostType))
-//                .client(getOkHttpClient())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-//
-//        //创建APIService
-//        apiService = retrofit.create(ApiService.class);
-//
-//        synchronized (RetrofitManager.class) {
-//            //注意  每次都要new   不是单例
-//            mRetrofitManager = new RetrofitManager(hostType);
-//        }
-//        return mRetrofitManager;
-//    }
-//
-    public static RetrofitManager getDefault(String baseHost) {
+    public static RetrofitManager getDefault() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseHost)
+                .baseUrl(ApiConstants.BASE_HOST)
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
 
         //创建APIService
         apiService = retrofit.create(ApiService.class);
-
         synchronized (RetrofitManager.class) {
             //注意  每次都要new   不是单例
-            mRetrofitManager = new RetrofitManager(baseHost);
+            mRetrofitManager = new RetrofitManager();
         }
         return mRetrofitManager;
     }
+
+    public static RetrofitManager getDefault(int hostType) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiConstants.getHost(hostType))
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+
+        //创建APIService
+        apiService = retrofit.create(ApiService.class);
+        synchronized (RetrofitManager.class) {
+            //注意  每次都要new   不是单例
+            mRetrofitManager = new RetrofitManager(hostType);
+        }
+        return mRetrofitManager;
+    }
+
 
     /**
      * 根据网络状况获取缓存的策略
