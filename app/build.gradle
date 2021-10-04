@@ -235,5 +235,6 @@ dependencies {
     implementation 'com.github.florent37:viewanimator:1.0.5'
     //video
     implementation 'fm.jiecao:jiecaovideoplayer:5.7'
-
+    //floating-toast
+    implementation 'io.github.hariprasanths:floating-toast:0.1.1'
 }

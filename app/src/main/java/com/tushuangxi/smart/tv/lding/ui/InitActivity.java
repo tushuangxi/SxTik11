@@ -2,6 +2,7 @@ package com.tushuangxi.smart.tv.lding.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.fengchen.uistatus.UiStatusController;
 import com.fengchen.uistatus.annotation.UiStatus;
+import com.github.hariprasanths.floatingtoast.FloatingToast;
 import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.entity.livedata.Data;
@@ -34,6 +36,7 @@ import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
+import com.tushuangxi.smart.tv.lding.utils.FloatingToastUtils;
 import com.tushuangxi.smart.tv.lding.widget.FocusViewUtils;
 import com.tushuangxi.smart.tv.library.asyncchain.AsyncChain;
 import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainError;
@@ -374,22 +377,14 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.ll_init_root:
-//                if (hasAll){
-//                    UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
-//                }else if (noQuick){
-//                    TipUtil.showToast(mContext,R.string.denied_authorization, 1000);
-//                    requestPermissionsMore();
-//                }else {
-//                    TipUtil.showToast(mContext,R.string.not_granted_permission, 1000);
-//                }
-                Logger.w(TAG,"goUpdater...");
+                FloatingToastUtils.showCenterToast(ll_init_root,"点击3s后就改成true，这样zhi就实现只dao点击一次了");
 
                 //修改 Data
                 Data data = DataLiveData.getInstance().getValue();
                 data.setName("我是" + Math.random());
                 DataLiveData.getInstance().setValue(data);
 
-                UiPage.init(mContext).with(mActivity, QianhaiActivity.class,false);
+//                UiPage.init(mContext).with(mActivity, QianhaiActivity.class,false);
                 break;
 
             case R.id.bt_joinAuthor:
@@ -402,6 +397,8 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                             isoncl=true;
                         }
                     },3000);
+
+
 
 //                    UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
                 }

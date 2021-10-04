@@ -37,13 +37,13 @@
         android:icon="${APP_ICON}"
         android:label="${APP_NAME}"
         android:roundIcon="${APP_ICON}"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:replace="label"
         android:supportsRtl="true"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:screenOrientation="sensorLandscape"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:replace="label"
        >
         <!--  application  需要定义 theme  否则  dialog会不显示字体     -->
 
