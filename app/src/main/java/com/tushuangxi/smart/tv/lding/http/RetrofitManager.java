@@ -1,14 +1,18 @@
 package com.tushuangxi.smart.tv.lding.http;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.tao.admin.loglib.Logger;
+import com.tushuangxi.smart.tv.BuildConfig;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.utils.JsonHandleUtils;
 import com.tushuangxi.smart.tv.lding.utils.NetworkUtils;
 import com.tushuangxi.smart.tv.lding.utils.SpfsUtils;
 import com.tushuangxi.smart.tv.library.loading.conn.LoadingApp;
+import com.xiaomai.environmentswitcher.EnvironmentSwitcher;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -80,33 +84,39 @@ public class RetrofitManager {
     }
 
     public static RetrofitManager getDefault() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiConstants.BASE_HOST)
-                .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-
-        //创建APIService
-        apiService = retrofit.create(ApiService.class);
-        synchronized (RetrofitManager.class) {
-            //注意  每次都要new   不是单例
-            mRetrofitManager = new RetrofitManager();
+        String host = EnvironmentSwitcher.getAppEnvironment(LoadingApp.getContext(), BuildConfig.DEBUG);
+        if (mRetrofitManager == null || mRetrofitManager == null || !mRetrofitManager.equals((host))) {
+            synchronized (RetrofitManager.class) {
+                //注意  每次都要new   不是单例
+                mRetrofitManager = new RetrofitManager();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(ApiConstants.BASE_HOST)
+                        .client(getOkHttpClient())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+                //创建APIService
+                apiService = retrofit.create(ApiService.class);
+            }
         }
         return mRetrofitManager;
     }
 
     public static RetrofitManager getDefault(int hostType) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiConstants.getHost(hostType))
-                .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+        String host = EnvironmentSwitcher.getManagementEnvironment(LoadingApp.getContext(), BuildConfig.DEBUG);
+        Log.w(TAG,host);
+        if (mRetrofitManager == null || mRetrofitManager == null || !mRetrofitManager.equals((host))) {
+            synchronized (RetrofitManager.class) {
+                //注意  每次都要new   不是单例
+                mRetrofitManager = new RetrofitManager(hostType);
 
-        //创建APIService
-        apiService = retrofit.create(ApiService.class);
-        synchronized (RetrofitManager.class) {
-            //注意  每次都要new   不是单例
-            mRetrofitManager = new RetrofitManager(hostType);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(ApiConstants.getHost(hostType))
+                        .client(getOkHttpClient())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+                //创建APIService
+                apiService = retrofit.create(ApiService.class);
+            }
         }
         return mRetrofitManager;
     }

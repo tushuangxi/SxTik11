@@ -2,17 +2,20 @@ package com.tushuangxi.smart.tv.lding.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
@@ -27,6 +30,7 @@ import com.fengchen.uistatus.UiStatusController;
 import com.fengchen.uistatus.annotation.UiStatus;
 import com.github.hariprasanths.floatingtoast.FloatingToast;
 import com.tao.admin.loglib.Logger;
+import com.tushuangxi.smart.tv.BuildConfig;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.entity.livedata.Data;
 import com.tushuangxi.smart.tv.lding.entity.livedata.DataLiveData;
@@ -60,6 +64,12 @@ import com.tushuangxi.smart.tv.lding.utils.DoubleClickHelper;
 import com.tushuangxi.smart.tv.lding.utils.HideUtil;
 import com.tushuangxi.smart.tv.lding.utils.TipUtil;
 import com.tushuangxi.smart.tv.library.router.UiPage;
+import com.xiaomai.environmentswitcher.EnvironmentSwitchActivity;
+import com.xiaomai.environmentswitcher.EnvironmentSwitcher;
+import com.xiaomai.environmentswitcher.bean.EnvironmentBean;
+import com.xiaomai.environmentswitcher.bean.ModuleBean;
+import com.xiaomai.environmentswitcher.listener.OnEnvironmentChangeListener;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
@@ -67,7 +77,7 @@ import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 
-public class InitActivity extends BaseActivity implements   interfaceUtilsAll.SiteNavigationRspView{
+public class InitActivity extends BaseActivity implements   interfaceUtilsAll.SiteNavigationRspView,OnEnvironmentChangeListener {
 
     String TAG = "TAG: "+ InitActivity.class.getSimpleName()+"....";
     public static  InitActivity mActivity;
@@ -78,8 +88,8 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     RelativeLayout ll_init_root;
     @BindView(R.id.iv_ImageView)
     ImageView iv_ImageView;
-    @BindView(R.id.bt_joinAuthor)
-    Button bt_joinAuthor;
+    @BindView(R.id.bt_switch_environment)
+    TextView bt_switch_environment;
     @BindView(R.id.jcVideoPlayerStandard)
     JCVideoPlayerStandard jcVideoPlayerStandard;
     public static Data data = new Data();
@@ -100,15 +110,27 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     protected void onResume() {
         super.onResume();
         goSiteNavigation(15,1);
-
-        if (hasAll){
-//            FloatingLogcatView.getInstance(getApplicationContext());
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void initView() {
+        //切换环境
+        EnvironmentSwitcher.addOnEnvironmentChangeListener(this);
+        if (!BuildConfig.DEBUG) {
+            bt_switch_environment.setVisibility(View.GONE);
+        }
+        bt_switch_environment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                EnvironmentSwitchActivity.launch(LoadingApp.getContext());
+                Intent intent = new Intent(LoadingApp.getContext(), EnvironmentSwitchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+
         mActivity = InitActivity.this;
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         //报错  解决android.os.NetworkOnMainThreadException
@@ -125,7 +147,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         }
 
         addOnClickListeners(R.id.ll_init_root
-                , R.id.bt_joinAuthor
+
         );
 
         //图片
@@ -384,10 +406,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 data.setName("我是" + Math.random());
                 DataLiveData.getInstance().setValue(data);
 
-//                UiPage.init(mContext).with(mActivity, QianhaiActivity.class,false);
-                break;
 
-            case R.id.bt_joinAuthor:
                 if(isoncl){
                     isoncl=false;
                     //点击3s后就改成true，这样zhi就实现只dao点击一次了
@@ -400,8 +419,13 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
 
 
+//                UiPage.init(mContext).with(mActivity, QianhaiActivity.class,false);
 //                    UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
                 }
+                break;
+
+            case R.id.bt_joinAuthor:
+
 
                 break;
 
@@ -529,14 +553,6 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (preLoader != null) {
-            preLoader.destroy();
-        }
-    }
-
-    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
       if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             if (event.getAction() == KeyEvent.ACTION_UP) {
@@ -552,5 +568,39 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         if (preLoader != null) {
             preLoader.destroy();
         }
+    }
+
+    @Override
+    public void onEnvironmentChanged(ModuleBean module, EnvironmentBean oldEnvironment, EnvironmentBean newEnvironment) {
+        Log.e(TAG, "Module=" + module.getName() + ",\nOldEnvironment=" + oldEnvironment.getName() + ",\noldUrl=" + oldEnvironment.getUrl()
+                + ",\nnewEnvironment=" + newEnvironment.getName() + ",\nnewUrl=" + newEnvironment.getUrl());
+
+        Toast.makeText(this, "Module=" + module.getName() + ",\nOldEnvironment=" + oldEnvironment.getName() + ",\noldUrl=" + oldEnvironment.getUrl()
+                + ",\nnewEnvironment=" + newEnvironment.getName() + ",\nnewUrl=" + newEnvironment.getUrl(), Toast.LENGTH_SHORT).show();
+
+        if (module.equals(EnvironmentSwitcher.MODULE_APP)) {
+            // 如果环境切换后重新请求的接口需要 token，可以通过 postDelay 在延迟一定时间后再请求
+            // if the request need token, you can send in postDelay.
+            long delayTime = 1500;
+            findViewById(R.id.ll_init_root).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // 发送需要 token 参数的接口请求
+                    // send the request need token
+                    Log.e(TAG, "run: send request");
+
+                    Toast.makeText(LoadingApp.getContext(), "send request", Toast.LENGTH_SHORT).show();
+                }
+            }, delayTime);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (preLoader != null) {
+            preLoader.destroy();
+        }
+        EnvironmentSwitcher.removeOnEnvironmentChangeListener(this);
     }
 }

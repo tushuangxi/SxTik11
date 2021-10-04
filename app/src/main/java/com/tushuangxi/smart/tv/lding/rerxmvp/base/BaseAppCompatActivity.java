@@ -5,8 +5,11 @@ import android.content.Context;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,15 +23,21 @@ import com.tushuangxi.smart.tv.lding.utils.StatusBarCompat;
 import com.tushuangxi.smart.tv.lding.utils.network.NetworkManager;
 import com.tushuangxi.smart.tv.lding.utils.network.NetworkObserver;
 import com.tushuangxi.smart.tv.lding.widget.NoWorkDialog;
+import com.tushuangxi.smart.tv.library.imageloaderfactory.cofig.MainActivity;
 import com.tushuangxi.smart.tv.library.loading.conn.PreTaskManager;
 import com.lky.toucheffectsmodule.factory.TouchEffectsFactory;
 import com.lky.toucheffectsmodule.types.TouchEffectsWholeType;
+import com.xiaomai.environmentswitcher.EnvironmentSwitcher;
+import com.xiaomai.environmentswitcher.bean.EnvironmentBean;
+import com.xiaomai.environmentswitcher.bean.ModuleBean;
+import com.xiaomai.environmentswitcher.listener.OnEnvironmentChangeListener;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import butterknife.ButterKnife;
 
-public abstract class BaseAppCompatActivity extends AppCompatActivity implements ActBaseView, View.OnClickListener, PreTaskManager.SwipeAction ,NetworkObserver{
+public abstract class BaseAppCompatActivity extends AppCompatActivity implements ActBaseView, View.OnClickListener, PreTaskManager.SwipeAction ,NetworkObserver, OnEnvironmentChangeListener {
 
     String TAG = BaseAppCompatActivity.class.getSimpleName()+"....";
     protected Context mContext;
@@ -101,6 +110,42 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         //网络状态 观察者
         NetworkManager.getInstance().initialized(this);
         NetworkManager.getInstance().registerNetworkObserver(this);
+
+        EnvironmentSwitcher.addOnEnvironmentChangeListener(this);
+    }
+
+    @Override
+    public void onEnvironmentChanged(ModuleBean module, EnvironmentBean oldEnvironment, EnvironmentBean newEnvironment) {
+        Log.e(TAG, "Module=" + module.getName() + ",\nOldEnvironment=" + oldEnvironment.getName() + ",\noldUrl=" + oldEnvironment.getUrl()
+                + ",\nnewEnvironment=" + newEnvironment.getName() + ",\nnewUrl=" + newEnvironment.getUrl());
+
+        Toast.makeText(this, "Module=" + module.getName() + ",\nOldEnvironment=" + oldEnvironment.getName() + ",\noldUrl=" + oldEnvironment.getUrl()
+                + ",\nnewEnvironment=" + newEnvironment.getName() + ",\nnewUrl=" + newEnvironment.getUrl(), Toast.LENGTH_SHORT).show();
+
+        if (module.equals(EnvironmentSwitcher.MODULE_APP)) {
+            // 如果环境切换后重新请求的接口需要 token，可以通过 postDelay 在延迟一定时间后再请求
+            // if the request need token, you can send in postDelay.
+            long delayTime = 1500;
+//            findViewById(R.id.frame_layout).postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // 发送需要 token 参数的接口请求
+//                    // send the request need token
+//                    Log.e(TAG, "run: send request");
+//
+//                    Toast.makeText(MainActivity.this, "send request", Toast.LENGTH_SHORT).show();
+//                }
+//            }, delayTime);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isBindEventBus()) {
+            EventBus.getDefault().unregister(this);
+        }
+        EnvironmentSwitcher.removeOnEnvironmentChangeListener(this);
     }
 
     @Override
@@ -299,13 +344,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (isBindEventBus()) {
-            EventBus.getDefault().unregister(this);
-        }
-    }
 
     /**
         透明状态栏
