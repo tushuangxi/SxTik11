@@ -1,7 +1,7 @@
 package com.tushuangxi.smart.tv.lding.utils;
 
-import com.tao.admin.loglib.Logger;
 
+import com.vise.log.ViseLog;
 
 /**
  * 记录启动时间
@@ -21,6 +21,6 @@ public class LaunchTimer {
 
     //结束时间  endRecord
     public static void endTime() {
-        Logger.w(TAG, "启动时间：" + (System.currentTimeMillis() - mTime));
+        ViseLog.w( "启动时间：" + (System.currentTimeMillis() - mTime));
     }
 }

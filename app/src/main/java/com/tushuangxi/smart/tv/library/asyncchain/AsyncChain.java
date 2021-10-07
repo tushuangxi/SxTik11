@@ -23,9 +23,9 @@ import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainRunnable;
  * //                            }
  * //                        })
  *                         task.onError(new AsyncChainError("出错了"));
- *                         Logger.w("出错了");
+ *                         ViseLog.w("出错了");
  *                         task.onNext("继续");
- *                         Logger.w(TAG,"继续");
+ *                         ViseLog.w(TAG,"继续");
  *                     }
  *                 })
  *                 .withMain(new AsyncChainRunnable(){
@@ -35,7 +35,7 @@ import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainRunnable;
  * //                        updateUI(lastResult);
  *                         //标识整个异步链式结束了，即使后面还有行为没有执行也不会继续下去了
  *                         task.onComplete();
- *                         Logger.w(TAG,"异步链式结束了");
+ *                         ViseLog.w(TAG,"异步链式结束了");
  *                     }
  *                 })
  *                 .errorMain(new AsyncChainErrorCallback(){
@@ -43,7 +43,7 @@ import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainRunnable;
  *                     public void error(AsyncChainError error) throws Exception {
  *                         //在主线程处理错误
  *                         //一旦error*方法执行，异步链就中断了
- *                         Logger.w(TAG,"异步链就中断了");
+ *                         ViseLog.w(TAG,"异步链就中断了");
  *                     }
  *                 })
  *                 .go(mContext);
@@ -53,7 +53,7 @@ import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainRunnable;
  *                 .withMain(new AsyncChainRunnable() {
  *                     @Override
  *                     public void run(AsyncChainTask task) throws Exception {
- *                         Logger.w(TAG,"延迟1000毫秒");
+ *                         ViseLog.w(TAG,"延迟1000毫秒");
  *                         task.onComplete();
  *                     }
  *                 }).go(this);

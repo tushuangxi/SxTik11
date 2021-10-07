@@ -3,7 +3,6 @@ package com.tushuangxi.smart.tv.library.nettyclient.netty;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.gson.Gson;
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
 import com.tushuangxi.smart.tv.lding.rerxmvp.service.remoteview.FloatWinfowErWeiMaServices;
 import com.tushuangxi.smart.tv.lding.ui.PartyActivity;
@@ -14,6 +13,8 @@ import com.tushuangxi.smart.tv.library.nettyclient.entry.LdingPacket;
 import com.tushuangxi.smart.tv.library.nettyclient.utils.ControllerTask;
 import com.tushuangxi.smart.tv.library.nettyclient.utils.LinkInfoUtil;
 import com.tushuangxi.smart.tv.library.nettyclient.utils.OrgActivityLog;
+import com.vise.log.ViseLog;
+
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -65,7 +66,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<Object> {
             String jsonString = gson.toJson(orgActivityLog);
             ctx.writeAndFlush(Unpooled.copiedBuffer(jsonString, CharsetUtil.UTF_8));
         }
-        Logger.w(TAG,"Netty..连接成功");
+        ViseLog.w("Netty..连接成功");
     }
 
     //从服务器接收到数据后调用
@@ -95,7 +96,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<Object> {
         try {
             //传来的消息包装成字节缓冲区
             msgStr = (String) msg;
-            Logger.w(TAG,"NettyClient读取服务端消息:" +msgStr);
+            ViseLog.w("NettyClient读取服务端消息:" +msgStr);
 //            EventBus.getDefault().postSticky(new EventClientMessage(EventCode.SYN_CODE_NETTY_NUM_DATA,msgStr));
         } catch (Exception e) {
             e.printStackTrace();

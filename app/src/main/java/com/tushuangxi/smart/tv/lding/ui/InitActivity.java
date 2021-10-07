@@ -29,7 +29,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fengchen.uistatus.UiStatusController;
 import com.fengchen.uistatus.annotation.UiStatus;
 import com.github.hariprasanths.floatingtoast.FloatingToast;
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.BuildConfig;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.entity.livedata.Data;
@@ -41,6 +40,7 @@ import com.tushuangxi.smart.tv.lding.rerxmvp.base.BaseActivity;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.rerxmvp.presenter.SiteNavigationRspPresenter;
 import com.tushuangxi.smart.tv.lding.utils.FloatingToastUtils;
+import com.tushuangxi.smart.tv.lding.widget.DragFloatButton;
 import com.tushuangxi.smart.tv.lding.widget.FocusViewUtils;
 import com.tushuangxi.smart.tv.library.asyncchain.AsyncChain;
 import com.tushuangxi.smart.tv.library.asyncchain.core.AsyncChainError;
@@ -64,6 +64,8 @@ import com.tushuangxi.smart.tv.lding.utils.DoubleClickHelper;
 import com.tushuangxi.smart.tv.lding.utils.HideUtil;
 import com.tushuangxi.smart.tv.lding.utils.TipUtil;
 import com.tushuangxi.smart.tv.library.router.UiPage;
+import com.tushuangxi.smart.tv.net.EnvironmentConfig;
+import com.vise.log.ViseLog;
 import com.xiaomai.environmentswitcher.EnvironmentSwitchActivity;
 import com.xiaomai.environmentswitcher.EnvironmentSwitcher;
 import com.xiaomai.environmentswitcher.bean.EnvironmentBean;
@@ -86,6 +88,8 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
     @BindView(R.id.ll_init_root)
     RelativeLayout ll_init_root;
+    @BindView(R.id.bt_switch_host)
+    DragFloatButton bt_switch_host;
     @BindView(R.id.iv_ImageView)
     ImageView iv_ImageView;
     @BindView(R.id.bt_switch_environment)
@@ -110,6 +114,20 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     protected void onResume() {
         super.onResume();
         goSiteNavigation(15,1);
+
+        showSwitchHost();
+    }
+
+    private void showSwitchHost() {
+        if (BuildConfig.DEBUG) {
+            bt_switch_host.setVisibility(View.VISIBLE);
+        } else {
+            bt_switch_host.setVisibility(View.GONE);
+        }
+        bt_switch_host.setAlpha(0.5f);
+//        bt_switch_host.setTitle("当前:" + host);
+//        bt_switch_host.setOnClickListener(v -> showSwitchDialog(dragFloatButton));
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -161,7 +179,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
             KVUtils.getInstance().removeString(AppGlobalConsts.Token);
         }
         String Token = KVUtils.getInstance().getString(AppGlobalConsts.Token);
-//        Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
+//        ViseLog.w(KVUtils.getInstance().getString(AppGlobalConsts.Token));
 
 
         //监听Data数据变化  回调
@@ -169,7 +187,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
             @Override
             public void onChanged(Data data) {
 //                mTextView.setText(data.getName());
-                Logger.w(TAG, data.getName());
+                ViseLog.w( data.getName());
             }
         });
         //异步任务
@@ -203,10 +221,10 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                            }
 //                        })
                         task.onError(new AsyncChainError("出错了"));
-                        Logger.w("出错了1");
-                        Logger.w(TAG,"继续1");
+                        ViseLog.w("出错了1");
+                        ViseLog.w("继续1");
                         task.onNext("继续");
-                        Logger.w(TAG,"继续");
+                        ViseLog.w("继续");
                     }
                 })
                 .withMain(new AsyncChainRunnable(){
@@ -215,7 +233,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         //使用异步操作的结果更新UI
 //                        updateUI(lastResult);
                         //标识整个异步链式结束了，即使后面还有行为没有执行也不会继续下去了
-                        Logger.w(TAG,"异步链式结束了");
+                        ViseLog.w("异步链式结束了");
                         task.onComplete();
                     }
                 })
@@ -224,7 +242,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                     public void error(AsyncChainError error) throws Exception {
                         //在主线程处理错误
                         //一旦error*方法执行，异步链就中断了
-                        Logger.w(TAG,"异步链就中断了");
+                        ViseLog.w("异步链就中断了");
                     }
                 })
                 .go(mContext);
@@ -233,7 +251,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
         AsyncChain.delay(1000).withMain(new AsyncChainRunnable() {
                     @Override
                     public void run(AsyncChainTask task) throws Exception {
-                        Logger.w(TAG,"延迟1000毫秒");
+                        ViseLog.w("延迟1000毫秒");
                         task.onComplete();
                     }
                 }).go(mContext);
@@ -406,7 +424,6 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 data.setName("我是" + Math.random());
                 DataLiveData.getInstance().setValue(data);
 
-
                 if(isoncl){
                     isoncl=false;
                     //点击3s后就改成true，这样zhi就实现只dao点击一次了
@@ -416,8 +433,6 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
                             isoncl=true;
                         }
                     },3000);
-
-
 
 //                UiPage.init(mContext).with(mActivity, QianhaiActivity.class,false);
 //                    UiPage.init(mContext).with(mActivity, PartyActivity.class,false);
@@ -492,7 +507,7 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //
 //                    @Override
 //                    public void onNext(ApkVersionUpdateRsp apkVersionUpdateRsp) {
-//                        Logger.w("TAG","ApkVersionUpdateRsp:"+apkVersionUpdateRsp.getMessage());
+//                        ViseLog.w("TAG","ApkVersionUpdateRsp:"+apkVersionUpdateRsp.getMessage());
 //                        if (apkVersionUpdateRsp.getCode()==AppGlobalConsts.HTTP_SUCCESS){
 //                            if (apkVersionUpdateRsp.getResult()==null){
 //                                return;
@@ -520,17 +535,17 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
     @Override
     public void onNetworkStateChanged(boolean networkConnected, NetworkInfo currentNetwork, NetworkInfo lastNetwork) {
         if(networkConnected) {
-//            Logger.w(TAG,"网络状态:" + (null == currentNetwork ? "" : ""+currentNetwork.getTypeName()+":"+currentNetwork.getState()));
+//            ViseLog.w(TAG,"网络状态:" + (null == currentNetwork ? "" : ""+currentNetwork.getTypeName()+":"+currentNetwork.getState()));
 //            TipUtil.newThreadToast("网络已连接!");
             //版本更新
             if (dialog!=null&&dialog.commitUpdater){
                 dialog.goUpdater("网络已连接,请稍后...");
-                Logger.w(TAG,"goUpdater...");
+                ViseLog.w("goUpdater...");
             }
         } else {
 //            TipUtil.newThreadToast("网络已断开!");
         }
-//        Logger.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
+//        ViseLog.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
     }
 
     /**
@@ -572,27 +587,27 @@ public class InitActivity extends BaseActivity implements   interfaceUtilsAll.Si
 
     @Override
     public void onEnvironmentChanged(ModuleBean module, EnvironmentBean oldEnvironment, EnvironmentBean newEnvironment) {
-        Log.e(TAG, "Module=" + module.getName() + ",\nOldEnvironment=" + oldEnvironment.getName() + ",\noldUrl=" + oldEnvironment.getUrl()
-                + ",\nnewEnvironment=" + newEnvironment.getName() + ",\nnewUrl=" + newEnvironment.getUrl());
+        String msg = module.getAlias()+" "+module.getName() + " 模块: 由" + oldEnvironment.getName() + "环境，Url=" + oldEnvironment.getUrl()
+                + ",切换为" + newEnvironment.getName() + "环境，Url=" + newEnvironment.getUrl();
+        Toast.makeText(LoadingApp.getContext(),msg,Toast.LENGTH_LONG).show();
+        ViseLog.w( msg);
+//        if (module.equals(EnvironmentSwitcher.MODULE_APP)) {
+//            // 如果环境切换后重新请求的接口需要 token，可以通过 postDelay 在延迟一定时间后再请求
+//            // if the request need token, you can send in postDelay.
+//            long delayTime = 1500;
+//            findViewById(R.id.ll_init_root).postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // 发送需要 token 参数的接口请求
+//                    // send the request need token
+//                    Log.e(TAG, "run: send request");
+//
+//                    Toast.makeText(LoadingApp.getContext(), "send request", Toast.LENGTH_SHORT).show();
+//                }
+//            }, delayTime);
+//        }
 
-        Toast.makeText(this, "Module=" + module.getName() + ",\nOldEnvironment=" + oldEnvironment.getName() + ",\noldUrl=" + oldEnvironment.getUrl()
-                + ",\nnewEnvironment=" + newEnvironment.getName() + ",\nnewUrl=" + newEnvironment.getUrl(), Toast.LENGTH_SHORT).show();
-
-        if (module.equals(EnvironmentSwitcher.MODULE_APP)) {
-            // 如果环境切换后重新请求的接口需要 token，可以通过 postDelay 在延迟一定时间后再请求
-            // if the request need token, you can send in postDelay.
-            long delayTime = 1500;
-            findViewById(R.id.ll_init_root).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // 发送需要 token 参数的接口请求
-                    // send the request need token
-                    Log.e(TAG, "run: send request");
-
-                    Toast.makeText(LoadingApp.getContext(), "send request", Toast.LENGTH_SHORT).show();
-                }
-            }, delayTime);
-        }
+        EnvironmentConfig.LogSwitcher(module,newEnvironment);
     }
 
     @Override

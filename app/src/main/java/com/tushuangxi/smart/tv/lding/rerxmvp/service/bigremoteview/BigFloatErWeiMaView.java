@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tushuangxi.smart.tv.BuildConfig;
 import com.tushuangxi.smart.tv.R;
 import com.tushuangxi.smart.tv.lding.eventbus.EventCode;
 import com.tushuangxi.smart.tv.lding.eventbus.EventMessage;
@@ -66,7 +67,7 @@ public class BigFloatErWeiMaView extends RelativeLayout {
         if (!TextUtils.isEmpty(floatId)){
             iv_creat_erweima.setVisibility(View.VISIBLE);
             Glide.with(context)
-                    .load( ApiConstants.BASE_HOST+floatQrCodeUrl+"")
+                    .load( BuildConfig.BASE_APP_HOST +floatQrCodeUrl+"")
                     .into(iv_creat_erweima);
             if (!TextUtils.isEmpty(EchoClientHandler.msgStr)){
                 tv_registerNum.setText("在线学员: "+EchoClientHandler.msgStr+"人");

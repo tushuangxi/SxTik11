@@ -21,14 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-
-import com.tao.admin.loglib.Logger;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import static android.content.Context.WINDOW_SERVICE;
 import static com.tushuangxi.smart.tv.lding.other.CommonLibConstant.IS_SHOWLOGCAT;
+
+import com.vise.log.ViseLog;
 
 /**
  *  support api>=23.
@@ -240,6 +239,6 @@ public class FloatingLogcatView implements Runnable {
             mWindowManager.removeView(mRootView);
             instance=null;
         }
-        Logger.w("TAG","FloatingLogcatView  close   ....  FloatingLogcatView View  onDestroy" );
+        ViseLog.w("FloatingLogcatView  close   ....  FloatingLogcatView View  onDestroy" );
     }
 }

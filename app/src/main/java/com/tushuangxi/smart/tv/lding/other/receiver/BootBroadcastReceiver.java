@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tao.admin.loglib.Logger;
+import com.vise.log.ViseLog;
 
 
 public class BootBroadcastReceiver extends BroadcastReceiver {
@@ -15,7 +15,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Logger.w(TAG,"开机启动");
+        ViseLog.w("开机启动");
         if (intent.getAction().equals(ACTION)) {
 
 //            Intent bootBroadcastIntent = new Intent(context, InitActivity.class);

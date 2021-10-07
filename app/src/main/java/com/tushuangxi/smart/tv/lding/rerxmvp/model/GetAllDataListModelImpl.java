@@ -47,7 +47,7 @@ public  class GetAllDataListModelImpl implements interfaceUtilsAll.SubjectAllLis
      */
     @Override
     public  Subscription requestSiteNavigationRspList(final interfaceUtilsAll.RequestCallback<SiteNavigationRsp> callback, RequestBody json, Context context) {
-        return RetrofitManager.getDefault().getSiteNavigationRspObservable(json)
+        return RetrofitManager.getAppDefault().getSiteNavigationRspObservable(json)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {

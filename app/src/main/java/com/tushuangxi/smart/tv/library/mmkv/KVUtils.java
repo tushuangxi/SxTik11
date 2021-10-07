@@ -8,7 +8,7 @@ import com.tencent.mmkv.MMKV;
  *         if (KVUtils.getInstance().containsKey(AppGlobalConsts.Token)){
  *             KVUtils.getInstance().removeString(AppGlobalConsts.Token);
  *         }
- *         Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
+ *         ViseLog.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
  *
  *
  *

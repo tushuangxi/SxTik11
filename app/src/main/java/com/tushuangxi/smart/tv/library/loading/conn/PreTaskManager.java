@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import com.billy.android.swipe.SmartSwipeBack;
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.utils.LaunchTimer;
 import com.tushuangxi.smart.tv.library.taskly.TaskDispatcher;
 import com.tushuangxi.smart.tv.library.taskly.tasks.GetDeviceIdTask;

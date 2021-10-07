@@ -14,7 +14,6 @@ import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.R;
 import com.tushuangxi.smart.tv.lding.eventbus.EventMessage;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
@@ -151,7 +150,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
     @Override
     public void onNetworkStateChanged(boolean networkConnected, NetworkInfo currentNetwork, NetworkInfo lastNetwork) {
         if(networkConnected) {
-//            Logger.w(TAG,"网络状态:" + (null == currentNetwork ? "" : ""+currentNetwork.getTypeName()+":"+currentNetwork.getState()));
+//            ViseLog.w(TAG,"网络状态:" + (null == currentNetwork ? "" : ""+currentNetwork.getTypeName()+":"+currentNetwork.getState()));
 //            TipUtil.newThreadToast("网络已连接!");
         } else {
 //            TipUtil.newThreadToast("网络已断开!");
@@ -159,7 +158,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             csdf.show(ft, "NoWorkDialog");
         }
-//        Logger.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
+//        ViseLog.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
     }
 
     protected  void touchEffectsView(){

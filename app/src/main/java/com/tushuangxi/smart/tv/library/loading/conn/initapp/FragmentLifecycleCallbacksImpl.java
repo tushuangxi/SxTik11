@@ -4,9 +4,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.tao.admin.loglib.Logger;
-import com.tushuangxi.smart.tv.lding.utils.WeLog;
-
+import com.vise.log.ViseLog;
 
 /**
  */
@@ -16,13 +14,13 @@ public class FragmentLifecycleCallbacksImpl extends FragmentManager.FragmentLife
     @Override
     public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
         super.onFragmentCreated(fm, f, savedInstanceState);
-        Logger.w(TAG,"onFragmentCreated: "+f.getClass().getSimpleName());
+        ViseLog.w("onFragmentCreated: "+f.getClass().getSimpleName());
 
     }
 
     @Override
     public void onFragmentDetached(FragmentManager fm, Fragment f) {
         super.onFragmentDetached(fm, f);
-        Logger.w("onFragmentDetached: "+f.getClass().getSimpleName());
+        ViseLog.w("onFragmentDetached: "+f.getClass().getSimpleName());
     }
 }

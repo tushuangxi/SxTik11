@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentActivity;
-
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.utils.ActivityUtils;
+import com.vise.log.ViseLog;
 import java.util.HashMap;
 
 
@@ -29,7 +28,7 @@ public class ActivityLifeCycleCallBackIml implements Application.ActivityLifecyc
             ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(lifecycleCallbacks,true);
         }
 
-        Logger.w(TAG,"activity生命周期管理类:  onActivityCreated: "+activity.getLocalClassName());
+        ViseLog.w(TAG,"activity生命周期管理类:  onActivityCreated: "+activity.getLocalClassName());
 
     }
 
@@ -39,7 +38,7 @@ public class ActivityLifeCycleCallBackIml implements Application.ActivityLifecyc
         appCount++;
         if (isRunInBackground) {
             //应用从后台回到前台 需要做的操作
-            Logger.w(TAG,"切换到前台......");
+            ViseLog.w(TAG,"切换到前台......");
         }
 
     }
@@ -58,7 +57,7 @@ public class ActivityLifeCycleCallBackIml implements Application.ActivityLifecyc
     public void onActivityStopped(Activity activity) {
         appCount--;
         if (appCount == 0) {
-            Logger.w(TAG,"切换到后台......");
+            ViseLog.w(TAG,"切换到后台......");
 
         }
     }
@@ -70,7 +69,7 @@ public class ActivityLifeCycleCallBackIml implements Application.ActivityLifecyc
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Logger.w(TAG,"activity生命周期管理类:  "+"onActivityDestroyed: "+activity.getLocalClassName());
+        ViseLog.w(TAG,"activity生命周期管理类:  "+"onActivityDestroyed: "+activity.getLocalClassName());
         ActivityUtils.removeActivity(activity);
 
     }

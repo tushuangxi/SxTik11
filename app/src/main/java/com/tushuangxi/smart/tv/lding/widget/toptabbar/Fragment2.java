@@ -1,5 +1,6 @@
 package com.tushuangxi.smart.tv.lding.widget.toptabbar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.http.SslError;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.fengchen.uistatus.UiStatusController;
 import com.fengchen.uistatus.annotation.UiStatus;
+import com.tushuangxi.smart.tv.BuildConfig;
 import com.tushuangxi.smart.tv.R;
 import com.tushuangxi.smart.tv.lding.http.ApiConstants;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
@@ -67,7 +69,7 @@ public class Fragment2 extends Fragment  {
         tv_pptPlay = view.findViewById(R.id.tv_pptPlay);
         mGsy = view.findViewById(R.id.gsy_player);
         String videoUrl = SpfsUtils.readString(LoadingApp.getContext(), AppGlobalConsts.VIDE_OURL);
-        mGsy.setUp(ApiConstants.BASE_HOST+videoUrl, true, "");
+        mGsy.setUp(BuildConfig.BASE_APP_HOST+videoUrl, true, "");
 
         // 指定时间进度播放（至少3位数）
 //        mGsy.setSeekOnStart(60123);
@@ -81,7 +83,7 @@ public class Fragment2 extends Fragment  {
 //        Glide.with(LoadingApp.getContext()).load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg").into(imageView);
 
         //增加封面2
-        loadCover(imageView,ApiConstants.BASE_HOST+videoUrl,LoadingApp.getContext());
+        loadCover(imageView,BuildConfig.BASE_APP_HOST+videoUrl,LoadingApp.getContext());
 
         //增加title
         mGsy.getTitleTextView().setVisibility(View.VISIBLE);
@@ -223,6 +225,7 @@ public class Fragment2 extends Fragment  {
             handler.proceed();
         }
     }
+    @SuppressLint("NewApi")
     public void clearWebViewCache() {
         CookieSyncManager.createInstance(LoadingApp.getContext());
         CookieManager cookieManager = CookieManager.getInstance();

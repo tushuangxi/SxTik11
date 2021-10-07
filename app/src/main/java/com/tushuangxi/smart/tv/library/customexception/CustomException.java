@@ -24,6 +24,6 @@ public class CustomException extends IllegalAccessError {
 	private static final long serialVersionUID = 4066053857828321133L;
 
 	public static void onCatchThrowable(Thread t){
-//        Logger.w(TAG,"我被抛出了...");
+//        ViseLog.w(TAG,"我被抛出了...");
     }
 }

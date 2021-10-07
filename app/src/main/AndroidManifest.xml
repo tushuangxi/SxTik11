@@ -38,7 +38,7 @@
         android:label="${APP_NAME}"
         android:roundIcon="${APP_ICON}"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:replace="label"
+        tools:replace="label,icon,roundIcon"
         android:supportsRtl="true"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:screenOrientation="sensorLandscape"

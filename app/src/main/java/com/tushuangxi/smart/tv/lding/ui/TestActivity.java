@@ -26,7 +26,6 @@ import com.fengchen.uistatus.annotation.UiStatus;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.R;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.entity.livedata.Data;
@@ -54,6 +53,7 @@ import com.tushuangxi.smart.tv.library.mmkv.KVUtils;
 import com.tushuangxi.smart.tv.library.router.UiPage;
 import com.tushuangxi.smart.tv.library.updater.ui.UpdateVersionShowDialog;
 import com.tushuangxi.smart.tv.library.updater.utils.AppUtils;
+import com.vise.log.ViseLog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -136,7 +136,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
             KVUtils.getInstance().removeString(AppGlobalConsts.Token);
         }
         String Token = KVUtils.getInstance().getString(AppGlobalConsts.Token);
-//        Logger.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
+//        ViseLog.w(TAG,KVUtils.getInstance().getString(AppGlobalConsts.Token));
 
 
         //监听Data数据变化  回调
@@ -144,7 +144,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
             @Override
             public void onChanged(Data data) {
 //                mTextView.setText(data.getName());
-                Logger.w(TAG, data.getName());
+                ViseLog.w( data.getName());
             }
         });
         //异步任务
@@ -176,10 +176,10 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                            }
 //                        })
                         task.onError(new AsyncChainError("出错了"));
-                        Logger.w("出错了1");
-                        Logger.w(TAG,"继续1");
+                        ViseLog.w("出错了1");
+                        ViseLog.w("继续1");
                         task.onNext("继续");
-                        Logger.w(TAG,"继续");
+                        ViseLog.w("继续");
                     }
                 })
                 .withMain(new AsyncChainRunnable(){
@@ -188,7 +188,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
                         //使用异步操作的结果更新UI
 //                        updateUI(lastResult);
                         //标识整个异步链式结束了，即使后面还有行为没有执行也不会继续下去了
-                        Logger.w(TAG,"异步链式结束了");
+                        ViseLog.w("异步链式结束了");
                         task.onComplete();
                     }
                 })
@@ -197,7 +197,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
                     public void error(AsyncChainError error) throws Exception {
                         //在主线程处理错误
                         //一旦error*方法执行，异步链就中断了
-                        Logger.w(TAG,"异步链就中断了");
+                        ViseLog.w("异步链就中断了");
                     }
                 })
                 .go(mContext);
@@ -206,7 +206,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
         AsyncChain.delay(1000).withMain(new AsyncChainRunnable() {
                     @Override
                     public void run(AsyncChainTask task) throws Exception {
-                        Logger.w(TAG,"延迟1000毫秒");
+                        ViseLog.w("延迟1000毫秒");
                         task.onComplete();
                     }
                 }).go(mContext);
@@ -379,7 +379,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //                }else {
 //                    TipUtil.showToast(mContext,R.string.not_granted_permission, 1000);
 //                }
-                Logger.w(TAG,"goUpdater...");
+                ViseLog.w("goUpdater...");
 
                 //修改 Data
                 Data data = DataLiveData.getInstance().getValue();
@@ -404,7 +404,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
                 }
 
                 int a = 10;
-                Logger.w(TAG,"a:..."+a/0);
+                ViseLog.w("a:..."+a/0);
                 break;
 
             default:
@@ -470,7 +470,7 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
 //
 //                    @Override
 //                    public void onNext(ApkVersionUpdateRsp apkVersionUpdateRsp) {
-//                        Logger.w("TAG","ApkVersionUpdateRsp:"+apkVersionUpdateRsp.getMessage());
+//                        ViseLog.w("TAG","ApkVersionUpdateRsp:"+apkVersionUpdateRsp.getMessage());
 //                        if (apkVersionUpdateRsp.getCode()==AppGlobalConsts.HTTP_SUCCESS){
 //                            if (apkVersionUpdateRsp.getResult()==null){
 //                                return;
@@ -498,17 +498,17 @@ public class TestActivity extends BaseActivity implements   interfaceUtilsAll.Si
     @Override
     public void onNetworkStateChanged(boolean networkConnected, NetworkInfo currentNetwork, NetworkInfo lastNetwork) {
         if(networkConnected) {
-//            Logger.w(TAG,"网络状态:" + (null == currentNetwork ? "" : ""+currentNetwork.getTypeName()+":"+currentNetwork.getState()));
+//            ViseLog.w(TAG,"网络状态:" + (null == currentNetwork ? "" : ""+currentNetwork.getTypeName()+":"+currentNetwork.getState()));
 //            TipUtil.newThreadToast("网络已连接!");
             //版本更新
             if (dialog!=null&&dialog.commitUpdater){
                 dialog.goUpdater("网络已连接,请稍后...");
-                Logger.w(TAG,"goUpdater...");
+                ViseLog.w("goUpdater...");
             }
         } else {
 //            TipUtil.newThreadToast("网络已断开!");
         }
-//        Logger.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
+//        ViseLog.w(TAG,null == currentNetwork ? "网络状态:无网络连接" : "网络状态:"+currentNetwork.toString());
     }
     /**
      * 加载第四秒的帧数作为封面

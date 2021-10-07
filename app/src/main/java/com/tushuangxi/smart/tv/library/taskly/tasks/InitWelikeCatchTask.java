@@ -50,7 +50,7 @@ public class InitWelikeCatchTask extends MainTask {
 //            @Override
 //            public void uncaughtException(Thread thread, Throwable ex) {
 //                ex.printStackTrace();
-//                ALogger.e(TAG,"出现异常了: " + ex.getMessage() + " (" + ex.getClass().getSimpleName() + ")" );
+//                ViseLog.e(TAG,"出现异常了: " + ex.getMessage() + " (" + ex.getClass().getSimpleName() + ")" );
                  //上传异常信息到服务器
 //                 uploadExceptionToServer(thread ,ex);
 //            }
@@ -60,7 +60,7 @@ public class InitWelikeCatchTask extends MainTask {
        /* NeverCrash.init(new NeverCrash.CrashHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable ex) {
-//                ALogger.e(TAG, Log.getStackTraceString(ex));
+//                ViseLog.e(TAG, Log.getStackTraceString(ex));
                 ex.printStackTrace();
 
                 //上传异常信息到服务器
@@ -100,7 +100,7 @@ public class InitWelikeCatchTask extends MainTask {
         //上传错误信息 stringWriter.toString()  或者 crashInfo.toString()
         String macAddr = SpfsUtils.readString(mContext, AppGlobalConsts.MacAddr);
         uploadCrashLogInfo(macAddr,crashInfo.toString(),1);
-//        ALogger.e(TAG,"上传崩溃日志: " + crashInfo.toString() );
+//        ViseLog.e(TAG,"上传崩溃日志: " + crashInfo.toString() );
     }
 
     private String throwable2String(Throwable ex) {

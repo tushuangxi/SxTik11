@@ -1,9 +1,6 @@
 package com.tushuangxi.smart.tv.lding.utils;
 
-import android.os.Environment;
-
-import com.tao.admin.loglib.IConfig;
-import com.tao.admin.loglib.TLogApplication;
+import com.tushuangxi.smart.tv.library.loading.conn.LoadingApp;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,11 +27,12 @@ public class LogcatUtils {
      * 写日志到本地
      */
     public static void exportLogcat(String log) {
+        long fileSize = 100000L;
         try {
-            File file = new File(TLogApplication.getAPP().getFilesDir(), "tlog.log");
+            File file = new File(LoadingApp.getContext().getFilesDir(), "tlog.log");
             FileWriter fw = null;
             if (file.exists()) {
-                if (file.length() > IConfig.getInstance().getFileSize()) {
+                if (file.length() > fileSize) {
                     fw = new FileWriter(file, false);
                 } else {
                     fw = new FileWriter(file, true);

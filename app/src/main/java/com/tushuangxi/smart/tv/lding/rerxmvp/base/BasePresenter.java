@@ -6,12 +6,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.lding.rerxmvp.interfaceUtils.interfaceUtilsAll;
 import com.tushuangxi.smart.tv.lding.utils.NetworkUtils;
 import com.tushuangxi.smart.tv.lding.widget.NoWorkDialog;
 import com.tushuangxi.smart.tv.lding.widget.loading.LoadingDialog;
 import com.tushuangxi.smart.tv.library.loading.conn.LoadingApp;
+import com.vise.log.ViseLog;
+
 import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 import java.io.NotSerializableException;
@@ -93,10 +94,10 @@ public abstract class BasePresenter<V extends interfaceUtilsAll.IBaseView, D>  i
                     NoWorkDialog csdf = NoWorkDialog.getInstance();
                     FragmentTransaction ft = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
                     csdf.show(ft, "NoWorkDialog");
-                    Logger.w(TAG,"onError... show   NoWorkDialog...:"+throwable.getMessage());
+                    ViseLog.w("onError... show   NoWorkDialog...:"+throwable.getMessage());
                 }
             }
-            Logger.w(TAG,"onError...:"+throwable.getMessage());
+            ViseLog.w("onError...:"+throwable.getMessage());
         }
        /* else if (throwable instanceof ConnectException) {
 //            TipUtil.newThreadToast("网络连接异常，请检查您的网络状态，稍后重试!");

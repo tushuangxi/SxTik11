@@ -50,39 +50,23 @@ android {
 
     flavorDimensions "default"
     productFlavors {
-        qa {
-            applicationId "com.tushuangxi.smart.qa"
-            applicationIdSuffix ".qa"
-            buildConfigField("String", "BASE_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
-            buildConfigField("String", "MANAGEMENT", "\"http://panel.hengyuanguochuang.com/\"")
-            buildConfigField("String", "PANEL", "\"http://panel.hengyuanguochuang.com/index3.html/\"")
-            manifestPlaceholders = [
-                    APP_NAME           : "qa-框架",
-                    APP_ICON:           "@mipmap/ic_launcher_round",
-            ]
-
-
-        }
-        qb {
-            applicationId "com.tushuangxi.smart.qb"
-            applicationIdSuffix ".qb"
-            buildConfigField("String", "BASE_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
-            buildConfigField("String", "MANAGEMENT", "\"http://panel.hengyuanguochuang.com/\"")
-            buildConfigField("String", "PANEL", "\"http://panel.hengyuanguochuang.com/index3.html/\"")
-            manifestPlaceholders = [
-                    APP_NAME           : "qb-框架",
-                    APP_ICON:           "@mipmap/ic_launcher_round",
-            ]
-        }
         online {
-            applicationId "com.tushuangxi.smart.online"
-            applicationIdSuffix ".online"
-            buildConfigField("String", "BASE_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
-            buildConfigField("String", "MANAGEMENT", "\"http://panel.hengyuanguochuang.com/\"")
-            buildConfigField("String", "PANEL", "\"http://panel.hengyuanguochuang.com/index3.html/\"")
+            applicationId "com.example.tsxtik_kotlin.online"
+            buildConfigField("String", "BASE_APP_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
+            buildConfigField("String", "BASE_LIVE_HOST", "\"http://live.hengyuanguochuang.com/\"")
             manifestPlaceholders = [
-                    APP_NAME           : "online-框架",
-                    APP_ICON:           "@mipmap/ic_launcher_round",
+                    APP_NAME           : "online-TsxTik_kotlin",
+                    APP_ICON           : "@mipmap/ic_launcher_round",
+            ]
+        }
+
+        qa {
+            applicationId "com.example.tsxtik_kotlin.qa"
+            buildConfigField("String", "BASE_APP_HOST", "\"http://xxp.hangtianyun.net/hengyuaniot-party-building/\"")
+            buildConfigField("String", "BASE_LIVE_HOST", "\"http://live.hengyuanguochuang.com/\"")
+            manifestPlaceholders = [
+                    APP_NAME           : "qa-TsxTik_kotlin",
+                    APP_ICON           : "@mipmap/ic_launcher_round",
             ]
         }
 
@@ -222,8 +206,6 @@ dependencies {
     // com.google.android.material.appbar.AppBarLayout;
     implementation 'com.google.android.material:material:1.2.0'
 
-    //https://github.com/wangjintao/TLog
-    implementation 'com.github.wangjintao:TLog:v1.0.1'
     //https://github.com/xiaoyaoyou1212/ViseLog 多种格式打印
     implementation 'com.vise.xiaoyaoyou:viselog:1.0.0'
 

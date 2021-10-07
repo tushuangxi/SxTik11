@@ -3,7 +3,6 @@ package com.tushuangxi.smart.tv.lding.http;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tao.admin.loglib.Logger;
 import com.tushuangxi.smart.tv.BuildConfig;
 import com.tushuangxi.smart.tv.lding.entity.SiteNavigationRsp;
 import com.tushuangxi.smart.tv.lding.other.AppGlobalConsts;
@@ -11,6 +10,7 @@ import com.tushuangxi.smart.tv.lding.utils.JsonHandleUtils;
 import com.tushuangxi.smart.tv.lding.utils.NetworkUtils;
 import com.tushuangxi.smart.tv.lding.utils.SpfsUtils;
 import com.tushuangxi.smart.tv.library.loading.conn.LoadingApp;
+import com.vise.log.ViseLog;
 import com.xiaomai.environmentswitcher.EnvironmentSwitcher;
 
 import java.io.File;
@@ -39,6 +39,8 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by tushuangxi 2019.1.26
+ *
+ * //首次执行BuildConfig  切换环境执行 EnvironmentSwitcher
  */
 public class RetrofitManager {
    static String TAG = "TAG: "+ RetrofitManager.class.getSimpleName()+"....";
@@ -56,10 +58,6 @@ public class RetrofitManager {
 
     public RetrofitManager() {
     }
-
-    public RetrofitManager(int hostType) {
-    }
-
 
     // 配置OkHttpClient
     private static OkHttpClient getOkHttpClient() {
@@ -83,43 +81,69 @@ public class RetrofitManager {
         return mOkHttpClient;
     }
 
-    public static RetrofitManager getDefault() {
-        String host = EnvironmentSwitcher.getAppEnvironment(LoadingApp.getContext(), BuildConfig.DEBUG);
-        if (mRetrofitManager == null || mRetrofitManager == null || !mRetrofitManager.equals((host))) {
-            synchronized (RetrofitManager.class) {
-                //注意  每次都要new   不是单例
-                mRetrofitManager = new RetrofitManager();
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(ApiConstants.BASE_HOST)
-                        .client(getOkHttpClient())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-                //创建APIService
-                apiService = retrofit.create(ApiService.class);
-            }
+    //----------------------------------------------切换环境执行--------------------------------------------
+    /**
+     *  整个 App 的环境
+     */
+    public static String appHost() {
+        if (BuildConfig.DEBUG) {
+            String switcherHost = EnvironmentSwitcher.getAppEnvironment(LoadingApp.getContext(), BuildConfig.DEBUG);
+            ViseLog.w(  "appHost: switcherHost: "+switcherHost);
+            return switcherHost;
+        } else {
+            ViseLog.w(  "appHost: base_app_host: "+ BuildConfig.BASE_APP_HOST);
+            return BuildConfig.BASE_APP_HOST;
+        }
+    }
+
+    /**
+     *  整个 直播 的环境
+     */
+    public static String liveHost() {
+        if (BuildConfig.DEBUG) {
+            String switcherHost = EnvironmentSwitcher.getLiveEnvironment(LoadingApp.getContext(), BuildConfig.DEBUG);
+            ViseLog.w(  "appHost: switcherHost: "+switcherHost);
+            return switcherHost;
+        } else {
+            ViseLog.w(  "appHost: base_app_host: "+ BuildConfig.BASE_LIVE_HOST);
+            return BuildConfig.BASE_LIVE_HOST;
+        }
+    }
+
+    /**
+     * 整个 App模块 的环境
+     */
+    public static RetrofitManager getAppDefault() {
+        synchronized (RetrofitManager.class) {
+            //注意每次都要new
+            mRetrofitManager = new RetrofitManager();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(appHost())
+                    .client(getOkHttpClient())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+            apiService = retrofit.create(ApiService.class);
         }
         return mRetrofitManager;
     }
 
-    public static RetrofitManager getDefault(int hostType) {
-        String host = EnvironmentSwitcher.getManagementEnvironment(LoadingApp.getContext(), BuildConfig.DEBUG);
-        Log.w(TAG,host);
-        if (mRetrofitManager == null || mRetrofitManager == null || !mRetrofitManager.equals((host))) {
-            synchronized (RetrofitManager.class) {
-                //注意  每次都要new   不是单例
-                mRetrofitManager = new RetrofitManager(hostType);
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(ApiConstants.getHost(hostType))
-                        .client(getOkHttpClient())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-                //创建APIService
-                apiService = retrofit.create(ApiService.class);
-            }
+    /**
+     * 整个 直播模块 的环境
+     */
+    public static RetrofitManager getLiveDefault() {
+        synchronized (RetrofitManager.class) {
+            //注意每次都要new
+            mRetrofitManager = new RetrofitManager();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(liveHost())
+                    .client(getOkHttpClient())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+            apiService = retrofit.create(ApiService.class);
         }
         return mRetrofitManager;
     }
+
 
 
     /**
@@ -143,8 +167,7 @@ public class RetrofitManager {
             Request request = chain.request();
             if (!NetworkUtils.isConnected(LoadingApp.getContext())) {
                 request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
-                Logger.w(TAG,"no network");
-//                TipUtil.newThreadToast("没有联网,请检查设备网络连接！");
+                ViseLog.w("no network");
             }
             Response originalResponse = chain.proceed(request);
             if (NetworkUtils.isConnected(LoadingApp.getContext())) {
@@ -182,22 +205,22 @@ public class RetrofitManager {
         public Response intercept(Chain chain) throws IOException {
             //request
             final Request request = chain.request();
-            Logger.w(TAG,"-----------------------开始打印请求数据-----------------------");
+            Log.d(TAG,"-----------------------开始打印请求数据-----------------------");
             if (request != null) {
-                Logger.w(TAG,"发送请求:"+ request.toString());
+                ViseLog.w("发送请求:"+ request.toString());
                 Headers headers = request.headers();
                 if (headers != null) {
-                    Logger.w(TAG, "headers : " + headers.toString());
+                    ViseLog.w( "headers : " + headers.toString());
                 }
                 RequestBody body = request.body();
                 if (body != null) {
                     Buffer buffer = new Buffer();
                     body.writeTo(buffer);
                     String req = buffer.readByteString().utf8();
-                    Logger.w(TAG,"接收响应:"+ "body : " + req);
+                    ViseLog.w("接收响应:"+ "body : " + req);
                 }
             }
-            Logger.w(TAG,"-----------------------结束打印请求数据-----------------------");
+            Log.d(TAG,"-----------------------结束打印请求数据-----------------------");
 
             //response
             final Response response = chain.proceed(request);
@@ -212,19 +235,19 @@ public class RetrofitManager {
                 try {
                     charset = contentType.charset(charset);
                 } catch (UnsupportedCharsetException e) {
-                    Logger.w(TAG,"Couldn't decode the response body; charset is likely malformed.");
+                    ViseLog.w("Couldn't decode the response body; charset is likely malformed.");
                     return response;
                 }
             }
             if (contentLength != 0) {
-//                Logger.w(TAG, "-----------------------开始打印响应数据-----------------------");
-                Logger.w(TAG,"响应数据: "+ buffer.clone().readString(charset));
-//                Logger.w(TAG,"-----------------------结束打印响应数据-----------------------");
+                Log.d(TAG,"-----------------------开始打印响应数据-----------------------");
+                ViseLog.w("响应数据: "+ buffer.clone().readString(charset));
+                Log.d(TAG,"-----------------------结束打印响应数据-----------------------");
             }
             //retrofit   illegalStateException:closed     responseBody.string()必须注释掉 否则报错
             json = buffer.clone().readString(charset);
             responseString = ("JsonData--->拦截器："+ JsonHandleUtils.jsonHandle(buffer.clone().readString(charset)));
-            Logger.w(TAG,responseString.toString()+"\n \n");
+            ViseLog.w(responseString.toString()+"\n \n");
             return response;
         }
     };
